@@ -7,9 +7,9 @@ const routeNotFound = require("./middleware/notFound");
 const mongoose = require("mongoose");
 const authRouter = require("./route/userRoute");
 const courseRoute = require('./route/courseRoute')
-// CORS configuration (if necessary)
+
 const corsOptions = {
-  origin: process.env.CORS_ORIGIN || "*", // You can restrict the origins here
+  origin: process.env.CORS_ORIGIN || "*", 
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"],
 };
@@ -34,7 +34,6 @@ const startServer = async () => {
 
     await connectDb(process.env.MONGO_URI); // Connecting to MongoDB
 
-    // Not found handler (must be after routes)
     app.use(routeNotFound);
 
     const server = app.listen(PORT, () => {

@@ -4,11 +4,10 @@
 const mongoose = require("mongoose");
 const Course = require("./models/JobModel");
 
-// Connect to MongoDB
 mongoose
   .connect('mongodb+srv://street-easy:1867ms00226@cluster0.msgcuxv.mongodb.net/edwise-faruq?retryWrites=true&w=majority&appName=Cluster0', {
     family: 4,
-    serverSelectionTimeoutMS: 30000, // Increase timeout if necessary
+    serverSelectionTimeoutMS: 30000, 
   })
   .then(() => {
     console.log("Connected to MongoDB");
@@ -491,7 +490,6 @@ mongoose
       },
     ];
 
-    // Insert dummy courses
     Course.insertMany(courses)
       .then(() => console.log("Dummy courses added successfully"))
       .catch((error) => console.error("Error adding courses:", error));

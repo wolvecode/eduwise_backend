@@ -20,7 +20,7 @@ const getAllCourses = async (req, res) => {
 
 const getSuggestedCoursesForUser = async (req, res) => {
   try {
-    const interests = req.user.interests; // Assuming user has an 'interests' field.
+    const interests = req.user.interests; 
     console.log(interests);
 
     if (!interests || interests.length === 0) {
@@ -64,7 +64,6 @@ const createCourse = async (req, res) => {
   }
 };
 
-// Edit an existing course
 const editCourse = async (req, res) => {
   try {
     const courseId = req.params.id;
@@ -92,7 +91,6 @@ const editCourse = async (req, res) => {
   }
 };
 
-// Add content to a course
 const addContentToCourse = async (req, res) => {
   try {
     const courseId = req.params.id;
@@ -124,7 +122,6 @@ const addContentToCourse = async (req, res) => {
   }
 };
 
-// Edit content in a course
 const editContentInCourse = async (req, res) => {
   try {
     const courseId = req.params.id;
@@ -163,7 +160,6 @@ const editContentInCourse = async (req, res) => {
   }
 };
 
-// Delete a course
 const deleteCourse = async (req, res) => {
   try {
     const courseId = req.params.id;
@@ -195,13 +191,11 @@ const addQuizToCourse = async (req, res) => {
     const { courseId } = req.params;
     const { questions } = req.body;
 
-    // Find the course
     const course = await Course.findById(courseId);
     if (!course) {
       return res.status(404).json({ message: "Course not found" });
     }
 
-    // Validate the quiz structure
     for (const question of questions) {
       const correctAnswers = question.options.filter((opt) => opt.isCorrect);
       if (correctAnswers.length !== 1) {
@@ -211,18 +205,15 @@ const addQuizToCourse = async (req, res) => {
       }
     }
 
-    // Add the quiz with explicit _id
     const quiz = { questions, _id: new mongoose.Types.ObjectId() };
     course.quizzes.push(quiz);
 
-    // Save the course
     await course.save();
-    console.log(course.quizzes); // Verify the quizzes after saving
-
+    console.log(course.quizzes); 
     res.status(201).json({
       status: "success",
       message: "Quiz added successfully",
-      quizId: quiz._id, // Return the ID for confirmation
+      quizId: quiz._id, 
       course,
     });
   } catch (error) {
@@ -232,7 +223,6 @@ const addQuizToCourse = async (req, res) => {
 };
 
 
-// student answer to quize
 
 const submitQuizAnswers = async (req, res) => {
   try {

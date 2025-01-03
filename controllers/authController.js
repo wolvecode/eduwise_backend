@@ -101,11 +101,9 @@ const login = async (req, res) => {
       return res.status(404).json({ error: "Email or password incorrect" });
     }
 
-    // Generate token for the user
     const tokenUser = createTokenUser(user);
     const token = createToken({ user: tokenUser });
 
-    // Get suggested courses for the user
     const suggestedCourses = await getSuggestedCourses(user._id);
 
     return res.status(200).json({

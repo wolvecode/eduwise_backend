@@ -11,7 +11,7 @@ const {
   deleteCourse,
   addQuizToCourse,
   submitQuizAnswers
-} = require("../controllers/courseController"); // Fixed destructuring syntax
+} = require("../controllers/courseController"); 
 
 const {
   authenticateUser,

@@ -1,11 +1,9 @@
 const { isTokenValid } = require("../utils/token");
 
-// Helper function to send error responses
 const sendErrorResponse = (res, message, statusCode) => {
   return res.status(statusCode).json({ error: message });
 };
 
-// Authentication Middleware
 const authenticateUser = async (req, res, next) => {
   const authHeader = req.headers.authorization;
   if(!authHeader || !authHeader.startsWith("Bearer ")) {
@@ -31,7 +29,6 @@ const authenticateUser = async (req, res, next) => {
   }
 };
 
-// Authorization Middleware
 const authorizePermissions = (...roles) => {
   return (req, res, next) => {
     console.log("req.user:", req.user);

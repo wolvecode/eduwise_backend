@@ -4,7 +4,6 @@ const Job = require('../models/JobModel')
 
 const getUserDetails = async (req, res) => {
   try {
-    // Fetch the user by ID from req.user (assuming user is authenticated)
     const user = await User.findById(req.user.userId).populate(
       "enrolledCourses",
       "title description"
@@ -16,10 +15,8 @@ const getUserDetails = async (req, res) => {
         .json({ status: "error", message: "User not found" });
     }
 
-    // Convert Mongoose document to a plain object to modify it
     const userDetails = user.toObject();
 
-    // Remove sensitive data (e.g., password) from the response
     delete userDetails.password;
 
     res.status(200).json({ status: "success", user: userDetails });
@@ -104,7 +101,6 @@ const enrollUser = async (req, res) => {
 
 
 
-// suggested job controller
 
 const suggestJobsBasedOnCourses = async (req, res) => {
   try {
@@ -141,7 +137,6 @@ const suggestJobsBasedOnCourses = async (req, res) => {
       });
     }
 
-    // Fetch jobs matching the categories
     const jobs = await Job.find({ category: { $in: categories } });
    
     

@@ -58,7 +58,6 @@ const CourseSchema = new mongoose.Schema(
     progress: { type: Number, default: 0, min: 0, max: 100 },
     isActive: { type: Boolean, default: true },
 
-    // Existing fields
     quizzes: [
       {
         questions: [
