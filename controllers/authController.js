@@ -1,0 +1,127 @@
+const User = require("../models/UserModel");
+const createTokenUser = require("../utils/createTokenUser");
+const { createToken } = require("../utils/token");
+const { handleValidationError } = require("../utils/handleError");
+const Course = require("../models/CourseModel");
+
+const getSuggestedCourses = async (userId) => {
+  try {
+    const user = await User.findById(userId);
+
+    if (!user) {
+      throw new Error("User not found");
+    }
+
+    const suggestedCourses = await Course.find({
+      targetAudience: { $in: user.interests },
+    });
+    return suggestedCourses;
+  } catch (error) {
+    console.log(error);
+    throw new Error("Error fetching suggested courses: " + error.message);
+  }
+};
+
+const register = async (req, res) => {
+  try {
+    const { fullName, email, password, interests, role } = req.body;
+
+    if (!interests || interests.length === 0) {
+      return res
+        .status(400)
+        .json({ error: "Please select at least one interest." });
+    }
+
+    const validInterests = [
+      "Machine Learning",
+      "Robotics",
+      "Natural Language Processing (NLP)",
+      "Cognitive Computing",
+      "AI in Gaming",
+      ,
+    ];
+    const invalidInterests = interests.filter(
+      (interest) => !validInterests.includes(interest)
+    );
+    if (invalidInterests.length > 0) {
+      return res.status(400).json({
+        error: `${invalidInterests.join(", ")} is/are not valid interest(s)`,
+      });
+    }
+
+    const existingEmail = await User.findOne({ email });
+    if (existingEmail) {
+      return res.status(400).json({ error: "Email already exists" });
+    }
+
+    const user = await User.create({
+      fullName,
+      email,
+      password,
+      interests,
+      role,
+    });
+
+
+    const tokenUser = createTokenUser(user);
+    const token = createToken({ user: tokenUser });
+
+    const suggestedCourses = await getSuggestedCourses(user._id);
+
+    return res.status(201).json({
+      token,
+      status: "success",
+      message: "User created successfully",
+      user: tokenUser,
+      // suggestedCourses,
+    });
+  } catch (error) {
+    const { statusCode, error: errorMessage } = handleValidationError(error);
+    return res.status(statusCode).json({ error: errorMessage });
+  }
+};
+
+const login = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    if (!email || !password) {
+      return res
+        .status(400)
+        .json({ error: "Please provide email and password" });
+    }
+
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ error: "Email or password incorrect" });
+    }
+
+    const isMatch = await user.comparePassword(password);
+    if (!isMatch) {
+      return res.status(404).json({ error: "Email or password incorrect" });
+    }
+
+    // Generate token for the user
+    const tokenUser = createTokenUser(user);
+    const token = createToken({ user: tokenUser });
+
+    // Get suggested courses for the user
+    const suggestedCourses = await getSuggestedCourses(user._id);
+
+    return res.status(200).json({
+      token,
+      status: "success",
+      message: "Login successful",
+      user: tokenUser,
+      // suggestedCourses, 
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+module.exports = {
+  register,
+  login,
+};

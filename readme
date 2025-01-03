@@ -1,0 +1,491 @@
+all routes in api
+
+POST: http://localhost:3000/api/register
+POST: http://localhost:3000/api/login
+GET: http://localhost:3000/api/get-user-details
+POST: http://localhost:3000/api/enroll/:courseId
+GET: http://localhost:3000/api/suggest-jobs
+GET: http://localhost:3000/api/get-enrolled-courses
+GET: http://localhost:3000/api/all-courses
+GET: http://localhost:3000/api/suggested-courses
+POST: http://localhost:3000/api/create-course
+PATCH: http://localhost:3000/api/edit-course/:id
+POST: http://localhost:3000/api/add-content/:id
+PATCH: http://localhost:3000/api/edit-content/:id/:contentId
+DELETE: http://localhost:3000/api/delete-course/:id
+POST: http://localhost:3000/api/courses/:courseId/quizzes
+POST: http://localhost:3000/api/courses/:courseId/quizzes/:quizId/submit
+
+
+1. User Registeration
+POST: http://localhost:3000/api/register
+
+payload = {
+    "fullName": "John Doe",
+"email": "user@user25.com",
+"password": "Admin@admin1.com",
+"interests": [ "Machine Learning","Robotics"]
+}
+
+result = {
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImVtYWlsIjoidXNlckB1c2VyMjUuY29tIiwidXNlcklkIjoiNjc3NzlmZWVlZWMxNzgzZjhmZDg4ODM5IiwiaW50ZXJlc3RzIjpbIk1hY2hpbmUgTGVhcm5pbmciLCJSb2JvdGljcyJdLCJyb2xlIjoidXNlciIsImNyZWF0ZWRBdCI6IjIwMjUtMDEtMDNUMDg6Mjk6MzQuNzc3WiIsInVwZGF0ZWRBdCI6IjIwMjUtMDEtMDNUMDg6Mjk6MzQuNzc3WiJ9LCJpYXQiOjE3MzU4OTI5NzUsImV4cCI6MTczNjE1MjE3NX0.BQ6sUisRm8d2ppq2gB_KkiccJ_iLsaxaxkgtJv3F-LY",
+    "status": "success",
+    "message": "User created successfully",
+    "user": {
+        "email": "user@user25.com",
+        "userId": "67779feeeec1783f8fd88839",
+        "interests": [
+            "Machine Learning",
+            "Robotics"
+        ],
+        "role": "user",
+        "createdAt": "2025-01-03T08:29:34.777Z",
+        "updatedAt": "2025-01-03T08:29:34.777Z"
+    }
+}
+
+2. User Login
+ POST: http://localhost:3000/api/login
+
+payload = {   
+"email": "user@user25.com",
+"password": "Admin@admin1.com"
+}
+
+result = {
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImVtYWlsIjoidXNlckB1c2VyMjUuY29tIiwidXNlcklkIjoiNjc3NzlmZWVlZWMxNzgzZjhmZDg4ODM5IiwiaW50ZXJlc3RzIjpbIk1hY2hpbmUgTGVhcm5pbmciLCJSb2JvdGljcyJdLCJyb2xlIjoidXNlciIsImNyZWF0ZWRBdCI6IjIwMjUtMDEtMDNUMDg6Mjk6MzQuNzc3WiIsInVwZGF0ZWRBdCI6IjIwMjUtMDEtMDNUMDg6Mjk6MzQuNzc3WiJ9LCJpYXQiOjE3MzU4OTMyMzUsImV4cCI6MTczNjE1MjQzNX0.kfP6Rxf4ufQlYlv8cEtbHGmq052ES191sKf2AYeMlg8",
+    "status": "success",
+    "message": "Login successful",
+    "user": {
+        "email": "user@user25.com",
+        "userId": "67779feeeec1783f8fd88839",
+        "interests": [
+            "Machine Learning",
+            "Robotics"
+        ],
+        "role": "user",
+        "createdAt": "2025-01-03T08:29:34.777Z",
+        "updatedAt": "2025-01-03T08:29:34.777Z"
+    }
+}
+
+
+3. Get user details
+GET: http://localhost:3000/api/get-user-details
+Header: Authorization: Bearer Token
+
+result = {
+    "status": "success",
+    "user": {
+        "_id": "6776a7e43b32682c8606297e",
+        "fullName": "John Doe",
+        "email": "admin@admin.com",
+        "role": "admin",
+        "interests": [
+            "Machine Learning",
+            "Robotics"
+        ],
+        "enrolledCourses": [
+            {
+                "_id": "6776aaec1a7ee9883cfa77a0",
+                "title": "string",
+                "description": "string"
+            }
+        ],
+        "createdAt": "2025-01-02T14:51:16.074Z",
+        "updatedAt": "2025-01-03T07:58:45.030Z",
+        "__v": 1
+    }
+}
+
+4. For user to enroll in a particular course
+POST: http://localhost:3000/api/enroll/:courseId
+Header: Authorization: Bearer Token
+
+5. To suggest jobs for User based on enrolled course
+GET: http://localhost:3000/api/suggest-jobs
+Header: Authorization: Bearer Token
+
+6. TO get courses that user is enrolled in
+GET: http://localhost:3000/api/get-enrolled-courses
+Header: Authorization: Bearer Token
+
+7. To get all courses on the app
+GET:  http://localhost:3000/api/all-courses
+No auth required
+
+8. To suggest courses for user based on their interest
+GET: http://localhost:3000/api/suggested-courses
+ Header: Authorization: Bearer Token
+
+9. To create course(Admin only)
+Log in as admin to use Admin Only Route
+admin details:
+"email": "admin@admin.com",
+"password": "Admin@admin1.com",
+
+POST: http://localhost:3000/api/create-course
+Header: Authorization: Bearer Token
+
+payload: {
+"price": 45,
+"objectives": "string",
+"description": "string",
+"title": "string",
+"duration": 10,
+"enrolledStudents": 45,
+"teacher": "string",
+"targetAudience": ["Machine Learning", "AI in Gaming"]
+}
+
+result: {
+    "status": "success",
+    "message": "Course created successfully",
+    "course": {
+        "title": "string",
+        "duration": 10,
+        "teacher": "string",
+        "enrolledStudents": 45, //this increments when user enroll in course
+        "description": "string",
+        "objectives": "string",
+        "targetAudience": [
+            "Machine Learning",
+            "AI in Gaming"
+        ],
+        "price": 45,
+        "certificate": true,
+        "progress": 0,
+        "isActive": true,
+        "_id": "6777a4827e49b646cf8f78f2",
+        "contents": [],
+        "quizzes": [],
+        "createdAt": "2025-01-03T08:49:06.091Z",
+        "updatedAt": "2025-01-03T08:49:06.091Z",
+        "__v": 0
+    }
+}
+
+
+
+
+
+10. To Edit a course
+PATCH: http://localhost:3000/api/edit-course/:id (:id is the course Id)
+payload = {
+"price": 45,
+"objectives": "string edited",
+"description": "string edited",
+"title": "string edited",
+"duration": 10,
+"enrolledStudents": 45,
+"teacher": "string",
+"targetAudience": ["Machine Learning", "AI in Gaming"]
+}
+
+result = {
+    "status": "success",
+    "message": "Course updated successfully",
+    "course": {
+        "_id": "6777a4827e49b646cf8f78f2",
+        "title": "string edited",
+        "duration": 10,
+        "teacher": "string",
+        "enrolledStudents": 45,
+        "description": "string edited",
+        "objectives": "string edited",
+        "targetAudience": [
+            "Machine Learning",
+            "AI in Gaming"
+        ],
+        "price": 45,
+        "certificate": true,
+        "progress": 0,
+        "isActive": true,
+        "contents": [],
+        "quizzes": [],
+        "createdAt": "2025-01-03T08:49:06.091Z",
+        "updatedAt": "2025-01-03T08:53:49.795Z",
+        "__v": 0
+    }
+}
+
+11. Add content to a course
+POST: http://localhost:3000/api/add-content/:id (:id is the course Id)
+
+payload: {
+"sectionTitle": "section 1",
+"lessons": [
+{
+"lessonTitle": "Ai maintenace",
+"videoUrl": "www.videiow.com",
+"duration": 12
+},
+{
+"lessonTitle": "Ai maintenace 2",
+"videoUrl": "www.videiow.com",
+"duration": 12
+},
+]
+}
+
+result: {
+    "status": "success",
+    "message": "Content added successfully",
+    "course": {
+        "_id": "6777a4827e49b646cf8f78f2",
+        "title": "string edited",
+        "duration": 10,
+        "teacher": "string",
+        "enrolledStudents": 45,
+        "description": "string edited",
+        "objectives": "string edited",
+        "targetAudience": [
+            "Machine Learning",
+            "AI in Gaming"
+        ],
+        "price": 45,
+        "certificate": true,
+        "progress": 0,
+        "isActive": true,
+        "contents": [
+            {
+                "sectionTitle": "section 1",
+                "lessons": [
+                    {
+                        "lessonTitle": "Ai maintenace",
+                        "videoUrl": "www.videiow.com",
+                        "duration": 12,
+                        "_id": "6777a6d3037ac99460da64ef"
+                    },
+                    {
+                        "lessonTitle": "Ai maintenace 2",
+                        "videoUrl": "www.videiow.com",
+                        "duration": 12,
+                        "_id": "6777a6d3037ac99460da64f0"
+                    }
+                ],
+                "_id": "6777a6d3037ac99460da64ee"
+            }
+        ],
+        "quizzes": [],
+        "createdAt": "2025-01-03T08:49:06.091Z",
+        "updatedAt": "2025-01-03T08:58:59.675Z",
+        "__v": 1
+    }
+}
+
+12. how to edit content
+PATCH: http://localhost:3000/api/edit-content/:id/:contentId (:id is course id, :content id is the content id)
+
+payload: {
+"sectionTitle": "section 1 edited",
+"lessons": [
+{
+"lessonTitle": "Ai maintenace edited",
+"videoUrl": "www.videiow.com",
+"duration": 12
+},
+{
+"lessonTitle": "Ai maintenace 2 edited",
+"videoUrl": "www.videiow.com",
+"duration": 12
+}
+]
+}
+
+result = {
+    "status": "success",
+    "message": "Content updated successfully",
+    "course": {
+        "_id": "6777a4827e49b646cf8f78f2",
+        "title": "string edited",
+        "duration": 10,
+        "teacher": "string",
+        "enrolledStudents": 45,
+        "description": "string edited",
+        "objectives": "string edited",
+        "targetAudience": [
+            "Machine Learning",
+            "AI in Gaming"
+        ],
+        "price": 45,
+        "certificate": true,
+        "progress": 0,
+        "isActive": true,
+        "contents": [
+            {
+                "sectionTitle": "section 1 edited",
+                "lessons": [
+                    {
+                        "lessonTitle": "Ai maintenace edited",
+                        "videoUrl": "www.videiow.com",
+                        "duration": 12,
+                        "_id": "6777a833037ac99460da6501"
+                    },
+                    {
+                        "lessonTitle": "Ai maintenace 2 edited",
+                        "videoUrl": "www.videiow.com",
+                        "duration": 12,
+                        "_id": "6777a833037ac99460da6502"
+                    }
+                ],
+                "_id": "6777a6d3037ac99460da64ee"
+            }
+        ],
+        "quizzes": [],
+        "createdAt": "2025-01-03T08:49:06.091Z",
+        "updatedAt": "2025-01-03T09:04:51.950Z",
+        "__v": 3
+    }
+}
+
+13. to delete a course 
+DELETE: http://localhost:3000/api/delete-course/:id
+
+14. How to add quizes for each courses
+POST: http://localhost:3000/api/courses/:courseId/quizzes
+payload: 
+{
+"questions": [
+{
+"questionText": "Is 2 an even number?",
+"options": [
+{ "optionText": "Yes", "isCorrect": true },
+{ "optionText": "No", "isCorrect": false },
+{ "optionText": "Not sure", "isCorrect": false }
+]
+},
+{
+"questionText": "What is the capital of France?",
+"options": [
+{ "optionText": "Paris", "isCorrect": true },
+{ "optionText": "London", "isCorrect": false },
+{ "optionText": "Berlin", "isCorrect": false }
+]
+}
+]
+}
+
+result: {
+    "status": "success",
+    "message": "Quiz added successfully",
+    "quizId": "6777a8f8037ac99460da6508",
+    "course": {
+        "_id": "6777a4827e49b646cf8f78f2",
+        "title": "string edited",
+        "duration": 10,
+        "teacher": "string",
+        "enrolledStudents": 45,
+        "description": "string edited",
+        "objectives": "string edited",
+        "targetAudience": [
+            "Machine Learning",
+            "AI in Gaming"
+        ],
+        "price": 45,
+        "certificate": true,
+        "progress": 0,
+        "isActive": true,
+        "contents": [
+            {
+                "sectionTitle": "section 1 edited",
+                "lessons": [
+                    {
+                        "lessonTitle": "Ai maintenace edited",
+                        "videoUrl": "www.videiow.com",
+                        "duration": 12,
+                        "_id": "6777a833037ac99460da6501"
+                    },
+                    {
+                        "lessonTitle": "Ai maintenace 2 edited",
+                        "videoUrl": "www.videiow.com",
+                        "duration": 12,
+                        "_id": "6777a833037ac99460da6502"
+                    }
+                ],
+                "_id": "6777a6d3037ac99460da64ee"
+            }
+        ],
+        "quizzes": [
+            {
+                "questions": [
+                    {
+                        "questionText": "Is 2 an even number?",
+                        "options": [
+                            {
+                                "optionText": "Yes",
+                                "isCorrect": true,
+                                "_id": "6777a8f8037ac99460da650b"
+                            },
+                            {
+                                "optionText": "No",
+                                "isCorrect": false,
+                                "_id": "6777a8f8037ac99460da650c"
+                            },
+                            {
+                                "optionText": "Not sure",
+                                "isCorrect": false,
+                                "_id": "6777a8f8037ac99460da650d"
+                            }
+                        ],
+                        "_id": "6777a8f8037ac99460da650a"
+                    },
+                    {
+                        "questionText": "What is the capital of France?",
+                        "options": [
+                            {
+                                "optionText": "Paris",
+                                "isCorrect": true,
+                                "_id": "6777a8f8037ac99460da650f"
+                            },
+                            {
+                                "optionText": "London",
+                                "isCorrect": false,
+                                "_id": "6777a8f8037ac99460da6510"
+                            },
+                            {
+                                "optionText": "Berlin",
+                                "isCorrect": false,
+                                "_id": "6777a8f8037ac99460da6511"
+                            }
+                        ],
+                        "_id": "6777a8f8037ac99460da650e"
+                    }
+                ],
+                "_id": "6777a8f8037ac99460da6508"
+            }
+        ],
+        "createdAt": "2025-01-03T08:49:06.091Z",
+        "updatedAt": "2025-01-03T09:08:08.741Z",
+        "__v": 4
+    }
+}
+
+
+
+15. How to make student submit quizes
+POST: http://localhost:3000/api/courses/:courseId/quizzes/:quizId/submit
+
+payload: {
+"answers": ["Yes", "Paris"] // this case sensitive
+}
+
+result = {
+    "status": "success",
+    "message": "Quiz submitted successfully",
+    "score": 100
+}
+
+
+second example
+
+payload: {
+"answers": ["Yes", "Lagos"]
+}
+
+result: {
+    "status": "success",
+    "message": "Quiz submitted successfully",
+    "score": 50
+}
+
