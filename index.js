@@ -1,30 +1,38 @@
-require("dotenv-safe").config()
+require("dotenv-safe").config();
 const express = require("express");
-const app = express();
-const connectDb = require("./utils/connectDb");
-const cors = require("cors");
-const routeNotFound = require("./middleware/notFound");
 const mongoose = require("mongoose");
+const cors = require("cors");
 const authRouter = require("./route/userRoute");
-const courseRoute = require('./route/courseRoute')
+const courseRoute = require("./route/courseRoute");
+const connectDb = require("./utils/connectDb");
+const routeNotFound = require("./middleware/notFound");
+
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+const allowedOrigins = process.env.CORS_ORIGIN.split(",");
 
 const corsOptions = {
-  origin: process.env.CORS_ORIGIN || "*", 
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: true,
 };
 
 app.use(cors(corsOptions));
 app.use(express.json());
 
 // Routes
-app.use("/api", authRouter); 
-app.use("/api", courseRoute); 
-
+app.use("/api", authRouter);
+app.use("/api", courseRoute);
 
 app.get("/health", (req, res) => res.status(200).send("OK"));
-
-const PORT = process.env.PORT || 3000;
 
 const startServer = async () => {
   try {
@@ -32,7 +40,7 @@ const startServer = async () => {
       throw new Error("MONGO_URI is not defined in environment variables.");
     }
 
-    await connectDb(process.env.MONGO_URI); // Connecting to MongoDB
+    await connectDb(process.env.MONGO_URI);
 
     app.use(routeNotFound);
 
