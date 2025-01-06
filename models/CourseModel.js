@@ -34,6 +34,7 @@ const CourseSchema = new mongoose.Schema(
     },
     contents: [
       {
+        sectionNumber: { type: Number, required: true },
         sectionTitle: { type: String, required: true },
         releaseDate: { type: Date },
         lessons: [
@@ -77,5 +78,19 @@ const CourseSchema = new mongoose.Schema(
 
   { timestamps: true }
 );
+
+CourseSchema.pre("save", function (next) {
+  if (this.isNew && this.contents.length > 0) {
+    // Loop through each section and assign sectionNumber
+    this.contents.forEach((section, index) => {
+      // Assign sectionNumber only if it's not already set
+      if (!section.sectionNumber) {
+        section.sectionNumber = index + 1; // Assign section number based on index
+      }
+    });
+  }
+  next();
+});
+
 
 module.exports = mongoose.model("Course", CourseSchema);

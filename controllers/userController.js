@@ -1,6 +1,6 @@
 const User = require("../models/UserModel");
 const Course = require("../models/CourseModel");
-const Job = require('../models/JobModel')
+const Job = require("../models/JobModel");
 
 const getUserDetails = async (req, res) => {
   try {
@@ -26,6 +26,63 @@ const getUserDetails = async (req, res) => {
   }
 };
 
+const updateUserDetails = async (req, res) => {
+  try {
+    const userId = req.user.userId;
+    const { fullName, email, interests } = req.body;
+
+    if (interests && interests.length === 0) {
+      return res
+        .status(400)
+        .json({ error: "Please select at least one interest." });
+    }
+
+    const validInterests = [
+      "Machine Learning",
+      "Robotics",
+      "Natural Language Processing (NLP)",
+      "Cognitive Computing",
+      "AI in Gaming",
+    ];
+
+    const invalidInterests = interests.filter(
+      (interest) => !validInterests.includes(interest)
+    );
+
+    if (invalidInterests.length > 0) {
+      return res.status(400).json({
+        error: `${invalidInterests.join(", ")} is/are not valid interest(s)`,
+      });
+    }
+
+
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+
+    user.fullName = fullName || user.fullName;
+    user.email = email || user.email;
+    user.interests = interests || user.interests;
+   
+    await user.save();
+
+    res.status(200).json({
+      status: "success",
+      message: "User details updated successfully",
+      user: {
+        fullName: user.fullName,
+        email: user.email,
+        interests: user.interests,
+        role: user.role, 
+      },
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
 
 const getUserEnrolledCourses = async (req, res) => {
   try {
@@ -49,49 +106,54 @@ const getUserEnrolledCourses = async (req, res) => {
   }
 };
 
-
 const enrollUser = async (req, res) => {
   try {
     const userId = req.user.userId;
     const { courseId } = req.params;
 
-    // Find the course by ID
     const course = await Course.findById(courseId);
+
     if (!course) {
       return res
         .status(404)
         .json({ status: "error", message: "Course not found" });
     }
 
-    // Find the user by ID
     const user = await User.findById(userId);
+
     if (!user) {
       return res
         .status(404)
         .json({ status: "error", message: "User not found" });
     }
 
-    // Check if the user is already enrolled in the course
     if (user.enrolledCourses.includes(courseId)) {
-      return res.status(400).json({
-        status: "error",
-        message: "User is already enrolled in this course",
-      });
+      return res
+        .status(400)
+        .json({ status: "error", message: "Already enrolled in the course" });
     }
 
-    // Add the course to the user's enrolled courses
     user.enrolledCourses.push(courseId);
+
+    const courseProgress = {
+      courseId: course._id,
+      sections: course.contents.map((section) => ({
+        sectionTitle: section.sectionTitle,
+        lessons: section.lessons.map((lesson) => ({
+          lessonTitle: lesson.lessonTitle,
+          watched: false, 
+        })),
+      })),
+      status: "not started",
+    };
+
+    user.progress.push(courseProgress);
+
     await user.save();
 
-    // Increment the enrolledStudents count for the course
-    course.enrolledStudents += 1;
-    await course.save();
-
-    // Respond with success
     res.status(200).json({
       status: "success",
-      message: "User successfully enrolled in the course",
-      enrolledCourses: user.enrolledCourses,
+      message: "User successfully enrolled in this course",
     });
   } catch (error) {
     console.error(error);
@@ -101,19 +163,16 @@ const enrollUser = async (req, res) => {
 
 
 
-
 const suggestJobsBasedOnCourses = async (req, res) => {
   try {
     const userId = req.user.userId;
-  
+
     const user = await User.findById(userId).populate("enrolledCourses");
     if (!user) {
       return res
         .status(404)
         .json({ status: "error", message: "User not found" });
     }
-
-    
 
     if (!user.enrolledCourses || user.enrolledCourses.length === 0) {
       return res.status(400).json({
@@ -127,9 +186,6 @@ const suggestJobsBasedOnCourses = async (req, res) => {
       ),
     ];
 
- 
-    
-
     if (categories.length === 0) {
       return res.status(400).json({
         status: "error",
@@ -138,8 +194,6 @@ const suggestJobsBasedOnCourses = async (req, res) => {
     }
 
     const jobs = await Job.find({ category: { $in: categories } });
-   
-    
 
     res.status(200).json({
       status: "success",
@@ -153,5 +207,212 @@ const suggestJobsBasedOnCourses = async (req, res) => {
   }
 };
 
+const getUserCourseProgress = async (req, res) => {
+  try {
+    const userId = req.user.userId;
+    const { courseId } = req.params;
 
-module.exports = { enrollUser, getUserDetails, getUserEnrolledCourses , suggestJobsBasedOnCourses};
+    const user = await User.findById(userId).populate("enrolledCourses");
+    if (!user) {
+      return res
+        .status(404)
+        .json({ status: "error", message: "User not found" });
+    }
+
+    const enrolledCourse = user.enrolledCourses.find((ec) =>
+      ec._id.equals(courseId)
+    );
+
+    if (!enrolledCourse) {
+      return res.status(404).json({
+        status: "error",
+        message: "Course not found in user progress",
+      });
+    }
+
+    const courseProgress = user.progress.find(
+      (progress) => progress.courseId.toString() === courseId
+    );
+
+    if (!courseProgress) {
+      return res.status(404).json({
+        status: "error",
+        message: "Course progress not found",
+      });
+    }
+
+    const sectionProgress = courseProgress.sections.map((section) => {
+      let completedLessons = 0;
+      let notCompletedLessons = 0;
+
+      section.lessons.forEach((lesson) => {
+        if (lesson.watched) {
+          completedLessons++;
+        } else {
+          notCompletedLessons++;
+        }
+      });
+
+      return {
+        sectionId: section._id,
+        sectionTitle: section.sectionTitle,
+        completedLessons,
+        notCompletedLessons,
+        totalLessons: section.lessons.length,
+        sectionStatus:
+          completedLessons === section.lessons.length
+            ? "completed"
+            : "in progress",
+      };
+    });
+
+    const totalLessonsInCourse = courseProgress.sections.reduce(
+      (total, section) => total + section.lessons.length,
+      0
+    );
+
+    const completedLessonsInCourse = courseProgress.sections.reduce(
+      (total, section) =>
+        total + section.lessons.filter((lesson) => lesson.watched).length,
+      0
+    );
+
+    const completedSections = sectionProgress.filter(
+      (section) => section.sectionStatus === "completed"
+    ).length;
+    const totalSections = courseProgress.sections.length;
+
+    const courseStatus =
+      completedSections === totalSections ? "completed" : "in progress";
+
+    const totalCourses = user.enrolledCourses.length;
+    const totalCompletedCourses = user.progress.filter((progress) =>
+      progress.sections.every((section) =>
+        section.lessons.every((lesson) => lesson.watched)
+      )
+    ).length;
+
+    res.status(200).json({
+      status: "success",
+      progress: sectionProgress,
+      courseStatus,
+      totalCourses,
+      totalCompletedCourses,
+      totalLessonsInCourse,
+      completedLessonsInCourse,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ status: "error", message: "Internal Server Error" });
+  }
+};
+
+
+
+
+const markLessonWatched = async (req, res) => {
+  try {
+    const userId = req.user.userId;
+    const { courseId, sectionTitle, lessonTitle } = req.params;
+
+    const user = await User.findById(userId).populate("enrolledCourses");
+    if (!user) {
+      return res
+        .status(404)
+        .json({ status: "error", message: "User not found" });
+    }
+
+    const courseProgress = user.progress.find(
+      (progress) => progress.courseId.toString() === courseId
+    );
+
+    if (!courseProgress) {
+      return res.status(404).json({
+        status: "error",
+        message: "Course not found in user progress",
+      });
+    }
+
+    const section = courseProgress.sections.find(
+      (sec) => sec.sectionTitle === sectionTitle
+    );
+
+    if (!section) {
+      return res
+        .status(404)
+        .json({ status: "error", message: "Section not found" });
+    }
+
+    const lesson = section.lessons.find(
+      (les) => les.lessonTitle === lessonTitle
+    );
+
+    if (!lesson) {
+      return res
+        .status(404)
+        .json({ status: "error", message: "Lesson not found" });
+    }
+
+    if (lesson.watched) {
+      return res.status(400).json({
+        status: "error",
+        message: "Lesson already marked as watched",
+      });
+    }
+
+    lesson.watched = true;
+
+    const sectionWatchedCount = section.lessons.filter(
+      (les) => les.watched
+    ).length;
+    const sectionTotalLessons = section.lessons.length;
+
+    const courseWatchedCount = courseProgress.sections.reduce(
+      (total, sec) => total + sec.lessons.filter((les) => les.watched).length,
+      0
+    );
+    const courseTotalLessons = courseProgress.sections.reduce(
+      (total, sec) => total + sec.lessons.length,
+      0
+    );
+
+    const allLessonsWatched = courseProgress.sections.every((sec) =>
+      sec.lessons.every((les) => les.watched)
+    );
+
+    courseProgress.status = allLessonsWatched ? "completed" : "active";
+
+    await user.save();
+
+    res.status(200).json({
+      status: "success",
+      message: "Lesson marked as watched",
+      sectionNumber:
+        courseProgress.sections.findIndex(
+          (sec) => sec.sectionTitle === sectionTitle
+        ) + 1, 
+      sectionTitle: section.sectionTitle,
+      lessonTitle: lesson.lessonTitle,
+      sectionWatchedCount,
+      sectionTotalLessons,
+      courseWatchedCount,
+      courseTotalLessons,
+      courseStatus: courseProgress.status,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ status: "error", message: "Internal Server Error" });
+  }
+};
+
+
+
+module.exports = {
+  enrollUser,
+  getUserDetails,
+  getUserEnrolledCourses,
+  suggestJobsBasedOnCourses,
+  getUserCourseProgress,
+  markLessonWatched,
+  updateUserDetails
+};

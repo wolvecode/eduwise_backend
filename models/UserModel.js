@@ -59,6 +59,23 @@ const UserSchema = new mongoose.Schema(
         ref: "Course",
       },
     ],
+    progress: [
+      {
+        courseId: { type: mongoose.Schema.Types.ObjectId, ref: "Course" },
+        sections: [
+          {
+            sectionTitle: String,
+            lessons: [
+              {
+                lessonTitle: String,
+                watched: { type: Boolean, default: false },
+              },
+            ],
+          },
+        ],
+        status: { type: String, default: "not started" },
+      },
+    ],
   },
   { timestamps: true }
 );

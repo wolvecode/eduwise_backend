@@ -96,6 +96,7 @@ const addContentToCourse = async (req, res) => {
     const courseId = req.params.id;
     const { sectionTitle, lessons } = req.body;
 
+    // Find the course
     const course = await Course.findById(courseId);
     if (!course) {
       return res
@@ -103,7 +104,17 @@ const addContentToCourse = async (req, res) => {
         .json({ status: "error", message: "Course not found" });
     }
 
-    course.contents.push({ sectionTitle, lessons });
+    // Manually assign sectionNumber before adding to contents
+    const newSection = {
+      sectionTitle,
+      lessons,
+      sectionNumber: course.contents.length + 1, // Assign sectionNumber based on existing sections
+    };
+
+    // Add the new section
+    course.contents.push(newSection);
+
+    // Save the course after modifying contents
     await course.save();
 
     res.status(200).json({
@@ -112,15 +123,17 @@ const addContentToCourse = async (req, res) => {
       course,
     });
   } catch (error) {
- const errorMessage = extractValidationErrors(error);
+    // Handle errors
+    const errorMessage = extractValidationErrors(error);
 
- res.status(400).json({
-   status: "error",
-   message: "Failed to create course",
-   error: errorMessage,
- });
+    res.status(400).json({
+      status: "error",
+      message: "Failed to create course",
+      error: errorMessage,
+    });
   }
 };
+
 
 const editContentInCourse = async (req, res) => {
   try {
@@ -284,6 +297,9 @@ const submitQuizAnswers = async (req, res) => {
 
 
 
+
+
+
 module.exports = {
   getAllCourses,
   getSuggestedCoursesForUser,
@@ -293,5 +309,6 @@ module.exports = {
   editContentInCourse,
   deleteCourse,
   addQuizToCourse,
-  submitQuizAnswers
+  submitQuizAnswers,
+
 };
