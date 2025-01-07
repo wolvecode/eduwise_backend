@@ -11,6 +11,8 @@ const getUserDetails = async (req, res) => {
       "title description"
     );
 
+    console.log(user);
+    
     if (!user) {
       return res
         .status(404)
@@ -18,6 +20,7 @@ const getUserDetails = async (req, res) => {
     }
 
     const userDetails = user.toObject();
+  
 
     delete userDetails.password;
 
@@ -34,13 +37,13 @@ const updateUserDetails = async (req, res) => {
     const { fullName, email } = req.body;
     let { interests } = req.body;
 
-   
+    // Normalize interests to ensure it's always an array
     if (interests) {
       if (!Array.isArray(interests)) {
         if (typeof interests === "string" && interests.trim()) {
-          interests = [interests]; 
+          interests = [interests]; // Convert single string to array
         } else {
-          interests = []; 
+          interests = []; // Default to an empty array
         }
       }
     }
@@ -69,11 +72,13 @@ const updateUserDetails = async (req, res) => {
       });
     }
 
+    // Find the user
     const user = await User.findById(userId);
     if (!user) {
       return res.status(404).json({ error: "User not found" });
     }
 
+    // Check if email is being updated to a new value and if it already exists
     if (email && email !== user.email) {
       const existingEmail = await User.findOne({ email });
       if (existingEmail) {
@@ -81,13 +86,48 @@ const updateUserDetails = async (req, res) => {
       }
     }
 
+    // Update user fields
     user.fullName = fullName || user.fullName;
     user.email = email || user.email;
     user.interests = interests || user.interests;
 
+    // Handle image upload if provided
+    if (req.files && req.files.userImage) {
+      const userImage = req.files.userImage;
+
+      // Validate image type
+      const allowedMimeTypes = ["image/jpeg", "image/png"];
+      if (!allowedMimeTypes.includes(userImage.mimetype)) {
+        return res.status(400).json({
+          error: "Only JPEG and PNG images are allowed for user image!",
+        });
+      }
+
+      // Upload the new image to Cloudinary
+      const userImageResult = await cloudinary.uploader.upload(
+        userImage.tempFilePath,
+        {
+          use_filename: true,
+          folder: "edwise_images",
+        }
+      );
+
+      // Update the user image field
+      user.userImage = userImageResult.secure_url;
+
+      // Delete the temp file after successful upload
+      if (userImage.tempFilePath) {
+        fs.unlink(userImage.tempFilePath, (err) => {
+          if (err) {
+            console.error("Error deleting temp file:", err);
+          }
+        });
+      }
+    }
+
+    // Save the updated user details
     await user.save();
 
-    
     res.status(200).json({
       status: "success",
       message: "User details updated successfully",
@@ -96,8 +136,7 @@ const updateUserDetails = async (req, res) => {
         email: user.email,
         interests: user.interests,
         role: user.role,
-        userImage: user.userImage
-      
+        userImage: user.userImage,
       },
     });
   } catch (error) {
