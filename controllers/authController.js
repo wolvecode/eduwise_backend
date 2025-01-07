@@ -11,7 +11,6 @@ const register = async (req, res) => {
   try {
     const { fullName, email, password, role } = req.body;
 
-    // Validate interests
     let interests = req.body.interests;
     if (!Array.isArray(interests)) {
       if (typeof interests === "string" && interests.trim()) {
@@ -44,13 +43,11 @@ const register = async (req, res) => {
       });
     }
 
-    // Check if the email already exists
     const existingEmail = await User.findOne({ email });
     if (existingEmail) {
       return res.status(400).json({ error: "Email already exists" });
     }
 
-    // Create the user
     const user = await User.create({
       fullName,
       email,

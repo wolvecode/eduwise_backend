@@ -1,7 +1,8 @@
 const User = require("../models/UserModel");
 const Course = require("../models/CourseModel");
 const Job = require("../models/JobModel");
-
+const cloudinary = require("cloudinary").v2;
+const fs = require("fs");
 
 const getUserDetails = async (req, res) => {
   try {
@@ -30,7 +31,19 @@ const getUserDetails = async (req, res) => {
 const updateUserDetails = async (req, res) => {
   try {
     const userId = req.user.userId;
-    const { fullName, email, interests } = req.body;
+    const { fullName, email } = req.body;
+    let { interests } = req.body;
+
+   
+    if (interests) {
+      if (!Array.isArray(interests)) {
+        if (typeof interests === "string" && interests.trim()) {
+          interests = [interests]; 
+        } else {
+          interests = []; 
+        }
+      }
+    }
 
     // Validate interests
     if (interests && interests.length === 0) {
@@ -56,13 +69,11 @@ const updateUserDetails = async (req, res) => {
       });
     }
 
-    // Find the user
     const user = await User.findById(userId);
     if (!user) {
       return res.status(404).json({ error: "User not found" });
     }
 
-    // Check if email is being updated and if it already exists
     if (email && email !== user.email) {
       const existingEmail = await User.findOne({ email });
       if (existingEmail) {
@@ -70,12 +81,10 @@ const updateUserDetails = async (req, res) => {
       }
     }
 
-    // Update user fields
     user.fullName = fullName || user.fullName;
     user.email = email || user.email;
     user.interests = interests || user.interests;
 
-    // Save the updated user details
     await user.save();
 
     res.status(200).json({

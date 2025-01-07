@@ -546,29 +546,26 @@ result: {
 
 
 
-payload = {
-    "password": "emailkff@ret.com2WWd",
-    "email": "emailkd@rfrrrfet4.cf",
-    "fullName": "okiki",
-     "interests": [
-            "Machine Learning"
-          
-        ]
-
-}
+payload = email=emailk@fret.cf
+          password=emailk@ret.com2WWd
+          interests=Machine Learning
+          interests=Robotics
+          userImage=(select your image)
 
 result: {
     "status": "success",
     "message": "User details updated successfully",
     "user": {
-        "fullName": "okiki",
-        "email": "emailkd@rfrrrfet4.cf",
+        "email": "emailk@frfet4.cf",
         "interests": [
-            "Machine Learning"
+            "Machine Learning",
+            "Robotics"
         ],
-        "role": "user"
+        "role": "user",
+        "userImage": "https://res.cloudinary.com/dobdvrgyr/image/upload/v1736231140/edwise_images/tmp-3-1736231138348_nmwc66.png"
     }
 }
+
 17. How to watch a lesson and update progress
 
 PATCH: http://localhost:3000/api/courses/:courseId/sections/:sectionTitle/lessons/:lessonTitle/watched",
