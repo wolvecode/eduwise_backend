@@ -18,31 +18,30 @@ POST: http://localhost:3000/api/courses/:courseId/quizzes/:quizId/submit
 
 1. User Registeration
    POST: http://localhost:3000/api/register
+   Request Format: multipart/form-data
 
-payload = {
-"fullName": "John Doe",
-"email": "user@user25.com",
-"password": "Admin@admin1.com",
-"interests": [ "Machine Learning","Robotics"]
-}
-
+payload = email=emailk@fret.cf
+          password=emailk@ret.com2WWd
+          interests=Machine Learning
+          interests=Robotics
+          userImage=(select your image)
 result = {
-"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImVtYWlsIjoidXNlckB1c2VyMjUuY29tIiwidXNlcklkIjoiNjc3NzlmZWVlZWMxNzgzZjhmZDg4ODM5IiwiaW50ZXJlc3RzIjpbIk1hY2hpbmUgTGVhcm5pbmciLCJSb2JvdGljcyJdLCJyb2xlIjoidXNlciIsImNyZWF0ZWRBdCI6IjIwMjUtMDEtMDNUMDg6Mjk6MzQuNzc3WiIsInVwZGF0ZWRBdCI6IjIwMjUtMDEtMDNUMDg6Mjk6MzQuNzc3WiJ9LCJpYXQiOjE3MzU4OTI5NzUsImV4cCI6MTczNjE1MjE3NX0.BQ6sUisRm8d2ppq2gB_KkiccJ_iLsaxaxkgtJv3F-LY",
-"status": "success",
-"message": "User created successfully",
-"user": {
-"email": "user@user25.com",
-"userId": "67779feeeec1783f8fd88839",
-"interests": [
-"Machine Learning",
-"Robotics"
-],
-"role": "user",
-"createdAt": "2025-01-03T08:29:34.777Z",
-"updatedAt": "2025-01-03T08:29:34.777Z"
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImVtYWlsIjoiZW1haWxrQGZyZXQuY2YiLCJ1c2VySWQiOiI2NzdjYzViMzQ3NmJiODFhYmJiNTRmZTIiLCJpbnRlcmVzdHMiOlsiTWFjaGluZSBMZWFybmluZyIsIlJvYm90aWNzIl0sInJvbGUiOiJ1c2VyIiwiY3JlYXRlZEF0IjoiMjAyNS0wMS0wN1QwNjoxMjowNC4wNDBaIiwidXBkYXRlZEF0IjoiMjAyNS0wMS0wN1QwNjoxMjowNC4wNDBaIn0sImlhdCI6MTczNjIzMDMyNCwiZXhwIjoxNzM2NDg5NTI0fQ.HNkKi3vBv5UgPFqJlPRKeKystgZ0d5ePshhFvEUg10E",
+    "status": "success",
+    "message": "User created successfully",
+    "user": {
+        "email": "emailk@fret.cf",
+        "userId": "677cc5b3476bb81abbb54fe2",
+        "interests": [
+            "Machine Learning",
+            "Robotics"
+        ],
+        "role": "user",
+        "createdAt": "2025-01-07T06:12:04.040Z",
+        "updatedAt": "2025-01-07T06:12:04.040Z"
+    },
+    "userImage": "https://res.cloudinary.com/dobdvrgyr/image/upload/v1736230323/edwise_images/tmp-1-1736230321445_limec9.png"
 }
-}
-
 2. User Login
    POST: http://localhost:3000/api/login
 
@@ -539,23 +538,28 @@ result: {
 
 16. How to update user info
     PATCH: http://localhost:3000/api/update/user
+    multipart/form-data
 
-payload: {
-"email": "email@email3.com",
-"interests": ["Machine Learning", "AI in Gaming"]
-}
+
+
+payload = email=emailk@fret.cf
+          password=emailk@ret.com2WWd
+          interests=Machine Learning
+          interests=Robotics
+          userImage=(select your image)
 
 result: {
-"status": "success",
-"message": "User details updated successfully",
-"user": {
-"email": "email@email3.com",
-"interests": [
-"Machine Learning",
-"AI in Gaming"
-],
-"role": "user"
-}
+    "status": "success",
+    "message": "User details updated successfully",
+    "user": {
+        "email": "emailk@frfet4.cf",
+        "interests": [
+            "Machine Learning",
+            "Robotics"
+        ],
+        "role": "user",
+        "userImage": "https://res.cloudinary.com/dobdvrgyr/image/upload/v1736231140/edwise_images/tmp-3-1736231138348_nmwc66.png"
+    }
 }
 
 17. How to watch a lesson and update progress

@@ -31,6 +31,10 @@ const UserSchema = new mongoose.Schema(
         },
       ],
     },
+    userImage: {
+      type: String,
+      required: true
+    },
     role: {
       type: String,
       enum: {

@@ -6,6 +6,10 @@ const authRouter = require("./route/userRoute");
 const courseRoute = require("./route/courseRoute");
 const connectDb = require("./utils/connectDb");
 const routeNotFound = require("./middleware/notFound");
+const cloudinary = require("cloudinary").v2;
+const fileUpload = require("express-fileupload");
+
+
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -27,6 +31,15 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
+
+app.use(fileUpload({ useTempFiles: true })); 
 
 // Routes
 app.use("/api", authRouter);
