@@ -1,8 +1,7 @@
 const User = require("../models/UserModel");
 const Course = require("../models/CourseModel");
 const Job = require("../models/JobModel");
-const cloudinary = require("cloudinary").v2;
-const fs = require("fs");
+
 
 const getUserDetails = async (req, res) => {
   try {
@@ -48,10 +47,9 @@ const updateUserDetails = async (req, res) => {
       "AI in Gaming",
     ];
 
-    const invalidInterests = interests.filter(
-      (interest) => !validInterests.includes(interest)
-    );
-
+    const invalidInterests = interests
+      ? interests.filter((interest) => !validInterests.includes(interest))
+      : [];
     if (invalidInterests.length > 0) {
       return res.status(400).json({
         error: `${invalidInterests.join(", ")} is/are not valid interest(s)`,
@@ -77,39 +75,6 @@ const updateUserDetails = async (req, res) => {
     user.email = email || user.email;
     user.interests = interests || user.interests;
 
-    // If there's a new image provided, handle the image upload separately
-    if (req.files && req.files.userImage) {
-      const userImage = req.files.userImage;
-
-      const allowedMimeTypes = ["image/jpeg", "image/png"];
-      if (!allowedMimeTypes.includes(userImage.mimetype)) {
-        return res.status(400).json({
-          error: "Only JPEG and PNG images are allowed for user image!",
-        });
-      }
-
-      // Upload the new image to Cloudinary
-      const userImageResult = await cloudinary.uploader.upload(
-        userImage.tempFilePath,
-        {
-          use_filename: true,
-          folder: "edwise_images",
-        }
-      );
-
-      // Update user image
-      user.userImage = userImageResult.secure_url;
-
-      // Delete the temp file only after the upload is successful
-      if (userImage.tempFilePath) {
-        fs.unlink(userImage.tempFilePath, (err) => {
-          if (err) {
-            console.error("Error deleting temp file:", err);
-          }
-        });
-      }
-    }
-
     // Save the updated user details
     await user.save();
 
@@ -121,7 +86,6 @@ const updateUserDetails = async (req, res) => {
         email: user.email,
         interests: user.interests,
         role: user.role,
-        userImage: user.userImage,
       },
     });
   } catch (error) {
@@ -160,6 +124,9 @@ const enrollUser = async (req, res) => {
 
     const course = await Course.findById(courseId);
 
+    console.log(course);
+    
+
     if (!course) {
       return res
         .status(404)
@@ -167,6 +134,9 @@ const enrollUser = async (req, res) => {
     }
 
     const user = await User.findById(userId);
+
+    console.log(user);
+    
 
     if (!user) {
       return res
@@ -181,6 +151,9 @@ const enrollUser = async (req, res) => {
     }
 
     user.enrolledCourses.push(courseId);
+
+    console.log(user);
+    
 
     const courseProgress = {
       courseId: course._id,

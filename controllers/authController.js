@@ -11,6 +11,7 @@ const register = async (req, res) => {
   try {
     const { fullName, email, password, role } = req.body;
 
+    // Validate interests
     let interests = req.body.interests;
     if (!Array.isArray(interests)) {
       if (typeof interests === "string" && interests.trim()) {
@@ -43,41 +44,11 @@ const register = async (req, res) => {
       });
     }
 
+    // Check if the email already exists
     const existingEmail = await User.findOne({ email });
     if (existingEmail) {
       return res.status(400).json({ error: "Email already exists" });
     }
-
-    const { userImage } = req.files;
-
-    // Ensure the user image is provided
-    if (!req.files || !userImage) {
-      return res.status(400).json({
-        status: "failed",
-        error: "User image is required!",
-      });
-    }
-
-    // Validate file types (allow only JPEG and PNG)
-    const allowedMimeTypes = ["image/jpeg", "image/png"];
-    if (!allowedMimeTypes.includes(userImage.mimetype)) {
-      return res.status(400).json({
-        status: "failed",
-        error: "Only JPEG and PNG images are allowed for user image!",
-      });
-    }
-
-    // Upload the user image to Cloudinary
-    const userImageResult = await cloudinary.uploader.upload(
-      userImage.tempFilePath,
-      {
-        use_filename: true,
-        folder: "edwise_images",
-      }
-    );
-
-    // Delete the temporary file after upload
-    fs.unlinkSync(userImage.tempFilePath);
 
     // Create the user
     const user = await User.create({
@@ -86,7 +57,6 @@ const register = async (req, res) => {
       password,
       interests,
       role,
-      userImage: userImageResult.secure_url,
     });
 
     const tokenUser = createTokenUser(user);
@@ -97,22 +67,15 @@ const register = async (req, res) => {
       status: "success",
       message: "User created successfully",
       user: tokenUser,
-      userImage: user.userImage,
     });
   } catch (error) {
     console.error(error);
-
-    // Ensure the temporary file is deleted if an error occurs before upload completes
-    if (req.files && req.files.userImage && req.files.userImage.tempFilePath) {
-      fs.unlinkSync(req.files.userImage.tempFilePath);
-    }
 
     const { statusCode = 500, error: errorMessage = "Internal Server Error" } =
       handleValidationError(error);
     return res.status(statusCode).json({ error: errorMessage });
   }
 };
-
 
 
 

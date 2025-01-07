@@ -15,32 +15,36 @@ PATCH: http://localhost:3000/api/edit-content/:id/:contentId
 DELETE: http://localhost:3000/api/delete-course/:id
 POST: http://localhost:3000/api/courses/:courseId/quizzes
 POST: http://localhost:3000/api/courses/:courseId/quizzes/:quizId/submit
+PATCH: http://localhost:3000/api/update/user
+PATCH: http://localhost:3000/api/courses/:courseId/sections/:sectionTitle/lessons/:lessonTitle/watched",
+GET: http://localhost:3000/api/courses/:courseId/progress
+
 
 1. User Registeration
    POST: http://localhost:3000/api/register
    Request Format: multipart/form-data
 
-payload = email=emailk@fret.cf
-          password=emailk@ret.com2WWd
-          interests=Machine Learning
-          interests=Robotics
-          userImage=(select your image)
+payload = {
+    "password": "emailkff@ret.com2WWd",
+    "email": "emailkd@rfrrrfet4.cf",
+    "fullName": "okiki",
+     "interests": [
+            "Machine Learning"
+          
+        ]
+
+}
 result = {
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImVtYWlsIjoiZW1haWxrQGZyZXQuY2YiLCJ1c2VySWQiOiI2NzdjYzViMzQ3NmJiODFhYmJiNTRmZTIiLCJpbnRlcmVzdHMiOlsiTWFjaGluZSBMZWFybmluZyIsIlJvYm90aWNzIl0sInJvbGUiOiJ1c2VyIiwiY3JlYXRlZEF0IjoiMjAyNS0wMS0wN1QwNjoxMjowNC4wNDBaIiwidXBkYXRlZEF0IjoiMjAyNS0wMS0wN1QwNjoxMjowNC4wNDBaIn0sImlhdCI6MTczNjIzMDMyNCwiZXhwIjoxNzM2NDg5NTI0fQ.HNkKi3vBv5UgPFqJlPRKeKystgZ0d5ePshhFvEUg10E",
     "status": "success",
-    "message": "User created successfully",
+    "message": "User details updated successfully",
     "user": {
-        "email": "emailk@fret.cf",
-        "userId": "677cc5b3476bb81abbb54fe2",
+        "fullName": "okiki",
+        "email": "emailkd@rfrrrfet4.cf",
         "interests": [
-            "Machine Learning",
-            "Robotics"
+            "Machine Learning"
         ],
-        "role": "user",
-        "createdAt": "2025-01-07T06:12:04.040Z",
-        "updatedAt": "2025-01-07T06:12:04.040Z"
-    },
-    "userImage": "https://res.cloudinary.com/dobdvrgyr/image/upload/v1736230323/edwise_images/tmp-1-1736230321445_limec9.png"
+        "role": "user"
+    }
 }
 2. User Login
    POST: http://localhost:3000/api/login
@@ -542,26 +546,29 @@ result: {
 
 
 
-payload = email=emailk@fret.cf
-          password=emailk@ret.com2WWd
-          interests=Machine Learning
-          interests=Robotics
-          userImage=(select your image)
+payload = {
+    "password": "emailkff@ret.com2WWd",
+    "email": "emailkd@rfrrrfet4.cf",
+    "fullName": "okiki",
+     "interests": [
+            "Machine Learning"
+          
+        ]
+
+}
 
 result: {
     "status": "success",
     "message": "User details updated successfully",
     "user": {
-        "email": "emailk@frfet4.cf",
+        "fullName": "okiki",
+        "email": "emailkd@rfrrrfet4.cf",
         "interests": [
-            "Machine Learning",
-            "Robotics"
+            "Machine Learning"
         ],
-        "role": "user",
-        "userImage": "https://res.cloudinary.com/dobdvrgyr/image/upload/v1736231140/edwise_images/tmp-3-1736231138348_nmwc66.png"
+        "role": "user"
     }
 }
-
 17. How to watch a lesson and update progress
 
 PATCH: http://localhost:3000/api/courses/:courseId/sections/:sectionTitle/lessons/:lessonTitle/watched",
