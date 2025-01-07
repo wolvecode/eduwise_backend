@@ -87,6 +87,7 @@ const updateUserDetails = async (req, res) => {
 
     await user.save();
 
+    
     res.status(200).json({
       status: "success",
       message: "User details updated successfully",
@@ -95,6 +96,8 @@ const updateUserDetails = async (req, res) => {
         email: user.email,
         interests: user.interests,
         role: user.role,
+        userImage: user.userImage
+      
       },
     });
   } catch (error) {
