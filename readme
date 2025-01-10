@@ -140,7 +140,8 @@ payload: {
 "duration": 10,
 "enrolledStudents": 45,
 "teacher": "string",
-"targetAudience": ["Machine Learning", "AI in Gaming"]
+"targetAudience": ["Machine Learning", "AI in Gaming"],
+"imageUrl": "https//image.com"
 }
 
 result: {

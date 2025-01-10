@@ -41,6 +41,7 @@ const sendEmail = async (
       await sleep(delay); 
       return sendEmail(to, subject, text, html, retries - 1, delay);
     } else {
+      console.log(error.message);
       throw error;
     }
   }

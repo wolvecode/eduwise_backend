@@ -27,10 +27,6 @@ const CourseSchema = new mongoose.Schema(
     certificate: { type: Boolean, default: true },
     imageUrl: {
       type: String,
-      validate: {
-        validator: (v) => /\.(jpg|jpeg|png|gif|webp)$/i.test(v),
-        message: "Invalid image format.",
-      },
     },
     contents: [
       {

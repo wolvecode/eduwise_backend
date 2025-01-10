@@ -23,7 +23,7 @@
 //         level: "beginner",
 //         price: 100,
 //         certificate: true,
-//         image: "machine_learning_intro.jpg",
+//         image: "",
 //       },
 //       {
 //         title: "Robotics Fundamentals",
@@ -37,7 +37,7 @@
 //         level: "beginner",
 //         price: 120,
 //         certificate: true,
-//         image: "robotics_fundamentals.jpg",
+//         image: "https://robotics_fundamentals.jpg",
 //       },
 //       {
 //         title: "Natural Language Processing Basics",
@@ -51,7 +51,7 @@
 //         level: "beginner",
 //         price: 90,
 //         certificate: true,
-//         image: "nlp_basics.jpg",
+//         image: "https://nlp_basics.jpg",
 //       },
 //       {
 //         title: "Advanced AI in Gaming",
@@ -65,7 +65,7 @@
 //         level: "advanced",
 //         price: 150,
 //         certificate: true,
-//         image: "ai_gaming.jpg",
+//         image: "https://ai_gaming.jpg",
 //       },
 //       {
 //         title: "Cognitive Computing: The Future",
@@ -79,7 +79,7 @@
 //         level: "intermediate",
 //         price: 130,
 //         certificate: true,
-//         image: "cognitive_computing.jpg",
+//         image: "https://cognitive_computing.jpg",
 //       },
 //       {
 //         title: "Deep Learning with Python",
@@ -93,7 +93,7 @@
 //         level: "advanced",
 //         price: 160,
 //         certificate: true,
-//         image: "deep_learning_python.jpg",
+//         image: "https://deep_learning_python.jpg",
 //       },
 //       {
 //         title: "Autonomous Robotics",
@@ -107,7 +107,7 @@
 //         level: "intermediate",
 //         price: 140,
 //         certificate: true,
-//         image: "autonomous_robotics.jpg",
+//         image: "https://autonomous_robotics.jpg",
 //       },
 //       {
 //         title: "Advanced NLP Techniques",
@@ -121,7 +121,7 @@
 //         level: "advanced",
 //         price: 200,
 //         certificate: true,
-//         image: "advanced_nlp.jpg",
+//         image: "https://advanced_nlp.jpg",
 //       },
 //       {
 //         title: "AI for Game Development",
@@ -136,7 +136,7 @@
 //         level: "intermediate",
 //         price: 170,
 //         certificate: true,
-//         image: "ai_game_dev.jpg",
+//         image: "https://ai_game_dev.jpg",
 //       },
 //       {
 //         title: "Cognitive Computing Applications",
@@ -150,7 +150,7 @@
 //         level: "intermediate",
 //         price: 135,
 //         certificate: true,
-//         image: "cognitive_applications.jpg",
+//         image: "https://cognitive_applications.jpg",
 //       },
 //       {
 //         title: "Machine Learning in Healthcare",
@@ -164,7 +164,7 @@
 //         level: "intermediate",
 //         price: 150,
 //         certificate: true,
-//         image: "ml_healthcare.jpg",
+//         image: "https://ml_healthcare.jpg",
 //       },
 //       {
 //         title: "Building Smart Robots",
@@ -178,7 +178,7 @@
 //         level: "advanced",
 //         price: 180,
 //         certificate: true,
-//         image: "smart_robots.jpg",
+//         image: "https://smart_robots.jpg",
 //       },
 //       {
 //         title: "Sentiment Analysis with NLP",
@@ -192,7 +192,7 @@
 //         level: "intermediate",
 //         price: 100,
 //         certificate: true,
-//         image: "sentiment_analysis.jpg",
+//         image: "https://sentiment_analysis.jpg",
 //       },
 //       {
 //         title: "AI in Virtual Reality",
@@ -206,7 +206,7 @@
 //         level: "advanced",
 //         price: 190,
 //         certificate: true,
-//         image: "ai_vr.jpg",
+//         image: "https://ai_vr.jpg",
 //       },
 //       {
 //         title: "Cognitive Computing Tools",
@@ -220,7 +220,7 @@
 //         level: "advanced",
 //         price: 160,
 //         certificate: true,
-//         image: "cognitive_tools.jpg",
+//         image: "https://cognitive_tools.jpg",
 //       },
 //     ];
 
