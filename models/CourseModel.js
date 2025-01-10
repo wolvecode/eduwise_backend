@@ -39,13 +39,6 @@ const CourseSchema = new mongoose.Schema(
             videoUrl: {
               type: String,
               required: true,
-              validate: {
-                validator: (v) =>
-                  /^(https?:\/\/)?(www\.)?([a-zA-Z0-9]+)([.\-_]?)*\.[a-z]{2,}(:[0-9]{1,5})?(\/.*)?$/.test(
-                    v
-                  ),
-                message: "Invalid URL format.",
-              },
             },
             duration: { type: Number, required: true },
           },
