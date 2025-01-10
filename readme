@@ -18,6 +18,7 @@ POST: http://localhost:3000/api/courses/:courseId/quizzes/:quizId/submit
 PATCH: http://localhost:3000/api/update/user
 PATCH: http://localhost:3000/api/courses/:courseId/sections/:sectionTitle/lessons/:lessonTitle/watched",
 GET: http://localhost:3000/api/courses/:courseId/progress
+GET: http://localhost:3000/api/courses/:courseId
 
 
 1. User Registeration
@@ -241,7 +242,7 @@ result: {
 "status": "success",
 "message": "Content added successfully",
 "course": {
-"\_id": "677c2a5bb75fd0225ac54004",
+"id": "677c2a5bb75fd0225ac54004",
 "title": "Machine Learning for Beginners",
 "duration": 40,
 "teacher": "Dr. John Doe",
@@ -289,7 +290,7 @@ result: {
 "_id": "677c2d3e71cd6e7fd8524a3e"
 }
 ],
-"\_id": "677c2d3e71cd6e7fd8524a3a"
+"id": "677c2d3e71cd6e7fd8524a3a"
 },
 {
 "sectionNumber": 2,
@@ -320,13 +321,13 @@ result: {
 "_id": "677c2d9ca882923d0fbc6af7"
 }
 ],
-"\_id": "677c2d9ca882923d0fbc6af3"
+"id": "677c2d9ca882923d0fbc6af3"
 }
 ],
 "quizzes": [],
 "createdAt": "2025-01-06T19:09:15.521Z",
 "updatedAt": "2025-01-06T19:23:08.427Z",
-"\_\_v": 2
+"v": 2
 }
 } 12. how to edit content
 PATCH: http://localhost:3000/api/edit-content/:id/:contentId (:id is course id, :content id is the content id)
@@ -425,7 +426,7 @@ result: {
 "message": "Quiz added successfully",
 "quizId": "6777a8f8037ac99460da6508",
 "course": {
-"\_id": "6777a4827e49b646cf8f78f2",
+"id": "6777a4827e49b646cf8f78f2",
 "title": "string edited",
 "duration": 10,
 "teacher": "string",
@@ -612,4 +613,87 @@ result: {
 "totalCompletedCourses": 0, // this the total number of course u completed
 "totalLessonsInCourse": 6,
 "completedLessonsInCourse": 2
+}
+
+19. How to get single course
+GET: http://localhost:3000/api/courses/:courseId
+
+result: {
+    "status": "success",
+    "course": {
+        "_id": "677c2a5bb75fd0225ac54004",
+        "title": "Machine Learning for Beginners",
+        "duration": 40,
+        "teacher": "Dr. John Doe",
+        "enrolledStudents": 50,
+        "description": "An introductory course to Machine Learning",
+        "objectives": "Learn the basics of ML, regression, classification, etc.",
+        "targetAudience": [
+            "Machine Learning",
+            "AI in Gaming"
+        ],
+        "language": "english",
+        "level": "beginner",
+        "price": 199,
+        "certificate": true,
+        "imageUrl": "https://example.com/course-image1.jpg",
+        "progress": 0,
+        "isActive": true,
+        "contents": [
+            {
+                "sectionNumber": 1,
+                "sectionTitle": "Introduction to ML",
+                "lessons": [
+                    {
+                        "lessonTitle": "What is Machine Learning?",
+                        "videoUrl": "https://example.com/video1.mp4",
+                        "duration": 10,
+                        "_id": "677c2d3e71cd6e7fd8524a3b"
+                    },
+                    {
+                        "lessonTitle": "History of ML",
+                        "videoUrl": "https://example.com/video2.mp4",
+                        "duration": 12,
+                        "_id": "677c2d3e71cd6e7fd8524a3c"
+                    },
+                    {
+                        "lessonTitle": "Types of Machine Learning",
+                        "videoUrl": "https://example.com/video3.mp4",
+                        "duration": 15,
+                        "_id": "677c2d3e71cd6e7fd8524a3d"
+                    },
+                    {
+                        "lessonTitle": "Applications of ML",
+                        "videoUrl": "https://example.com/video4.mp4",
+                        "duration": 10,
+                        "_id": "677c2d3e71cd6e7fd8524a3e"
+                    }
+                ],
+                "_id": "677c2d3e71cd6e7fd8524a3a"
+            },
+            {
+                "sectionNumber": 2,
+                "sectionTitle": "section 1 edited",
+                "lessons": [
+                    {
+                        "lessonTitle": "Ai maintenace edited",
+                        "videoUrl": "www.videiow.com",
+                        "duration": 12,
+                        "_id": "677c2e96a882923d0fbc6b04"
+                    },
+                    {
+                        "lessonTitle": "Ai maintenace 2 edited",
+                        "videoUrl": "www.videiow.com",
+                        "duration": 12,
+                        "_id": "677c2e96a882923d0fbc6b05"
+                    }
+                ],
+                "_id": "677c2d9ca882923d0fbc6af3"
+            }
+        ],
+        "quizzes": [],
+        "createdAt": "2025-01-06T19:09:15.521Z",
+        "updatedAt": "2025-01-06T19:27:18.975Z",
+        "__v": 3
+    }
 }

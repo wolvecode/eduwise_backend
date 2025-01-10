@@ -3,6 +3,21 @@ const mongoose = require('mongoose')
 const { extractValidationErrors } = require("../utils/handleError");
 
 
+const getSingleCourse = async (req, res) => {
+  try {
+    const { courseId} = req.params;
+    const course = await Course.findById(courseId);
+    if (!course) {
+      return res.status(404).json({ message: "no course found"})
+    }
+
+    res.status(200).json({ status: "success", course})
+  } catch (error) {
+      console.log(error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+}
+
 const getAllCourses = async (req, res) => {
   try {
     const allCourses = await Course.find({});
@@ -301,6 +316,7 @@ const submitQuizAnswers = async (req, res) => {
 
 
 module.exports = {
+  getSingleCourse,
   getAllCourses,
   getSuggestedCoursesForUser,
   createCourse,

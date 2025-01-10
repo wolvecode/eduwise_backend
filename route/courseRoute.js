@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const {
+  getSingleCourse,
   getAllCourses,
   getSuggestedCoursesForUser,
   createCourse,
@@ -20,6 +21,7 @@ const {
 
 router
   .get("/all-courses", getAllCourses)
+  .get("/courses/:courseId", getSingleCourse)
   .get("/suggested-courses", authenticateUser, getSuggestedCoursesForUser)
   .post(
     "/create-course",
