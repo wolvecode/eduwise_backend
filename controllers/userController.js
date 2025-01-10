@@ -232,6 +232,37 @@ const enrollUser = async (req, res) => {
   }
 };
 
+const suggestJobsBasedOnInterests = async (req, res) => {
+  try {
+    const userId = req.user.userId;
+
+    const user = await User.findById(userId);
+    if (!user) {
+      return res
+        .status(404)
+        .json({ status: "error", message: "User not found" });
+    }
+
+    if (!user.interests || user.interests.length === 0) {
+      return res.status(400).json({
+        status: "error",
+        message: "User has not specified any interests",
+      });
+    }
+
+    const jobs = await Job.find({ category: { $in: user.interests } });
+
+    res.status(200).json({
+      status: "success",
+      message: "Suggested jobs based on user interests",
+      nbHits: jobs.length,
+      jobs,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ status: "error", message: "Internal Server Error" });
+  }
+};
 
 
 const suggestJobsBasedOnCourses = async (req, res) => {
@@ -485,5 +516,6 @@ module.exports = {
   suggestJobsBasedOnCourses,
   getUserCourseProgress,
   markLessonWatched,
-  updateUserDetails
+  updateUserDetails,
+  suggestJobsBasedOnInterests,
 };

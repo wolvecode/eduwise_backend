@@ -17,8 +17,11 @@ POST: http://localhost:3000/api/courses/:courseId/quizzes
 POST: http://localhost:3000/api/courses/:courseId/quizzes/:quizId/submit
 PATCH: http://localhost:3000/api/update/user
 PATCH: http://localhost:3000/api/courses/:courseId/sections/:sectionTitle/lessons/:lessonTitle/watched",
-GET: http://localhost:3000/api/courses/:courseId/progress
-GET: http://localhost:3000/api/courses/:courseId
+GET:  http://localhost:3000/api/courses/:courseId/progress
+GET:  http://localhost:3000/api/courses/:courseId
+POST:  http://localhost:3000/api/forgot-password
+PATCH: http://localhost:3000/api/reset-password/:token
+GET:  http://localhost:3000/api/suggest-job/interest
 
 
 1. User Registeration
@@ -696,4 +699,158 @@ result: {
         "updatedAt": "2025-01-06T19:27:18.975Z",
         "__v": 3
     }
+}
+
+
+20. How to forget password
+
+POST:  http://localhost:3000/api/forgot-password
+
+
+payload : {
+    "email": "email.email.com"
+}
+
+result: {
+    "status": "success",
+    "message": "Password reset link sent to your email"
+}
+
+21. how to reset password
+
+PATCH: http://localhost:3000/api/reset-password/:token
+
+payload: {
+    "password": "newpassword",
+
+}
+
+result: {
+    "status": "success",
+    "message": "Password has been reset successfully"
+}
+
+
+22. How to get jobs based on user interests
+
+Get http://localhost:3000/api/suggest-job/interest
+
+
+result: {
+    "status": "success",
+    "message": "Suggested jobs based on user interests",
+    "nbHits": 7,
+    "jobs": [
+        {
+            "_id": "67779d6686b0e48082cc4d2a",
+            "title": "Sr. Staff Software Development Engineer - AI, C++, Inference",
+            "location": "2100 Logic Drive, San Jose, CA 95124",
+            "jobType": "",
+            "skills": [
+                "SoftWare development",
+                "Linux",
+                "Windows"
+            ],
+            "link": "https://www.indeed.com/jobs?q=AI+in+gaming&l=United+States&from=searchOnDesktopSerp&vjk=38e71412b8ce0176",
+            "category": "AI in Gaming",
+            "__v": 0,
+            "createdAt": "2025-01-03T08:18:46.916Z",
+            "updatedAt": "2025-01-03T08:18:46.916Z"
+        },
+        {
+            "_id": "67779d6686b0e48082cc4d2b",
+            "title": "Senior Manager, Product Manager - Tech, Amazon Games Generative AI",
+            "location": "Irvine, CA",
+            "jobType": "",
+            "skills": [
+                "Product Management",
+                "Machine Learning",
+                "Communication skills"
+            ],
+            "link": "https://www.indeed.com/jobs?q=AI+in+gaming&l=United+States&from=searchOnDesktopSerp&vjk=6a58ac7a7604db41",
+            "category": "AI in Gaming",
+            "__v": 0,
+            "createdAt": "2025-01-03T08:18:46.916Z",
+            "updatedAt": "2025-01-03T08:18:46.916Z"
+        },
+        {
+            "_id": "67779d6686b0e48082cc4d2c",
+            "title": "Senior Compiler Engineer - AI",
+            "location": "11431 Willows Road NE, Redmond, WA 98052",
+            "jobType": "",
+            "skills": [
+                "Natural processing language",
+                "Deep Learning",
+                "Machine Learning"
+            ],
+            "link": "https://www.indeed.com/jobs?q=AI+in+gaming&l=United+States&from=searchOnDesktopSerp&vjk=41a61cab46f14c9e",
+            "category": "AI in Gaming",
+            "__v": 0,
+            "createdAt": "2025-01-03T08:18:46.916Z",
+            "updatedAt": "2025-01-03T08:18:46.916Z"
+        },
+        {
+            "_id": "67779d6686b0e48082cc4d2d",
+            "title": "Design Director",
+            "location": "15800 SE Eastgate Way, Bellevue, WA 98008",
+            "jobType": "",
+            "skills": [
+                "System Design",
+                "Pythn"
+            ],
+            "link": "https://www.indeed.com/jobs?q=ai+gaming&l=United+States&start=10&vjk=6809e20ea82a73fc",
+            "category": "AI in Gaming",
+            "__v": 0,
+            "createdAt": "2025-01-03T08:18:46.916Z",
+            "updatedAt": "2025-01-03T08:18:46.916Z"
+        },
+        {
+            "_id": "67779d6686b0e48082cc4d2e",
+            "title": "Associate Technical Director, AI - Unannounced Game",
+            "location": "Irvine, CA 92618",
+            "jobType": "Hybrid",
+            "skills": [
+                "c++",
+                "ios",
+                "Analysis skills"
+            ],
+            "link": "https://www.indeed.com/jobs?q=ai+gaming&l=United+States&start=10&vjk=f104667afe8347cf",
+            "category": "AI in Gaming",
+            "__v": 0,
+            "createdAt": "2025-01-03T08:18:46.916Z",
+            "updatedAt": "2025-01-03T08:18:46.916Z"
+        },
+        {
+            "_id": "67779d6686b0e48082cc4d2f",
+            "title": "Senior Software Engineer, Amazon Games AI Research",
+            "location": "San Diego, CA",
+            "jobType": "",
+            "skills": [
+                "Unity",
+                "Tensor Flow",
+                "Software Development"
+            ],
+            "link": "https://www.indeed.com/jobs?q=ai+gaming&l=United+States&start=10&vjk=075871a5b0581e89",
+            "category": "AI in Gaming",
+            "__v": 0,
+            "createdAt": "2025-01-03T08:18:46.916Z",
+            "updatedAt": "2025-01-03T08:18:46.916Z"
+        },
+        {
+            "_id": "67779d6686b0e48082cc4d30",
+            "title": "Director, Cloud and Digital Platform Security",
+            "location": "Louisville,Kentucky,40222,United States, Louisville, KY 40222",
+            "jobType": "",
+            "skills": [
+                "Vulnerability assessment",
+                "SDLC",
+                "Leadership"
+            ],
+            "link": "https://www.indeed.com/jobs?q=Ai+Gaming&l=Kentucky&from=sug&vjk=a9cb87faee723592",
+            "category": "AI in Gaming",
+            "__v": 0,
+            "createdAt": "2025-01-03T08:18:46.916Z",
+            "updatedAt": "2025-01-03T08:18:46.916Z"
+        }
+    ]
 }

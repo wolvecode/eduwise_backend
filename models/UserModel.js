@@ -34,6 +34,9 @@ const UserSchema = new mongoose.Schema(
     userImage: {
       type: String,
     },
+    passwordResetToken: String,
+    passwordResetExpires: Date,
+
     role: {
       type: String,
       enum: {
