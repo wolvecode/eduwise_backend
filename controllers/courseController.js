@@ -13,7 +13,7 @@ const getSingleCourse = async (req, res) => {
 
     res.status(200).json({ status: "success", course})
   } catch (error) {
-      console.log(error);
+      console.log(error.message);
     res.status(500).json({ message: "Internal Server Error" });
   }
 }
@@ -28,7 +28,7 @@ const getAllCourses = async (req, res) => {
 
     res.status(200).json({ status: "success", allCourses });
   } catch (error) {
-    console.log(error);
+    console.log(error.message);
     res.status(500).json({ message: "Internal Server Error" });
   }
 };
@@ -50,7 +50,7 @@ const getSuggestedCoursesForUser = async (req, res) => {
 
     res.status(200).json({ status: "success", suggestedCourses });
   } catch (error) {
-    console.log(error);
+    console.log(error.message);
     res.status(500).json({ message: "Internal Server Error" });
   }
 };
@@ -99,7 +99,7 @@ const editCourse = async (req, res) => {
       course: updatedCourse,
     });
   } catch (error) {
-    console.log(error);
+    console.log(error.message);
     res
       .status(400)
       .json({ status: "error", message: "Failed to update course", error });
@@ -181,7 +181,7 @@ const editContentInCourse = async (req, res) => {
       course,
     });
   } catch (error) {
-    console.log(error);
+    console.log(error.message);
     res
       .status(400)
       .json({ status: "error", message: "Failed to update content", error });
@@ -204,7 +204,7 @@ const deleteCourse = async (req, res) => {
       message: "Course deleted successfully",
     });
   } catch (error) {
-    console.log(error);
+    console.log(error.message);
     res
       .status(500)
       .json({ status: "error", message: "Failed to delete course", error });
@@ -237,7 +237,7 @@ const addQuizToCourse = async (req, res) => {
     course.quizzes.push(quiz);
 
     await course.save();
-    console.log(course.quizzes); 
+  
     res.status(201).json({
       status: "success",
       message: "Quiz added successfully",
@@ -257,10 +257,7 @@ const submitQuizAnswers = async (req, res) => {
     const { courseId, quizId } = req.params;
     const { answers } = req.body;
 
-    console.log("Received courseId:", courseId);
-    console.log("Received quizId:", quizId);
 
-    // Find the course and quiz
     const course = await Course.findById(courseId);
     if (!course) {
       return res.status(404).json({ message: "Course not found" });
@@ -271,23 +268,19 @@ const submitQuizAnswers = async (req, res) => {
       return res.status(404).json({ message: "Quiz not found" });
     }
 
-    console.log("Received answers:", answers);
-    console.log("Quiz questions:", quiz.questions);
 
-    // Validate answers length
     if (answers.length !== quiz.questions.length) {
       return res.status(400).json({
         message: `Answers count (${answers.length}) does not match questions count (${quiz.questions.length}).`,
       });
     }
 
-    // Calculate the score
     let score = 0;
     quiz.questions.forEach((question, index) => {
       const selectedOption = answers[index];
       if (!selectedOption) {
         console.warn(`No answer provided for question at index ${index}`);
-        return; // Skip this question
+        return; 
       }
 
       const correctOption = question.options.find((opt) => opt.isCorrect);
@@ -296,7 +289,7 @@ const submitQuizAnswers = async (req, res) => {
       }
     });
 
-    // Calculate percentage
+ 
     const percentage = Math.ceil((score / quiz.questions.length) * 100);
 
     res.status(200).json({
@@ -305,7 +298,7 @@ const submitQuizAnswers = async (req, res) => {
       score: percentage,
     });
   } catch (error) {
-    console.error(error);
+  
     res.status(500).json({ message: "Internal Server Error" });
   }
 };

@@ -20,6 +20,7 @@ mongoose
         skills: ["unix", "R", "python"],
         link: "https://www.indeed.com/jobs?q=Machine+Learning&l=United+States&from=searchOnDesktopSerp&vjk=8637b9991a57e16d",
         category: "Machine Learning",
+        price: "$136,800 - $205,000 a year",
       },
 
       {
@@ -29,6 +30,7 @@ mongoose
         skills: ["pyTorch", "Machine Learning", "python"],
         link: "https://www.indeed.com/jobs?q=Machine+Learning&l=United+States&from=searchOnDesktopSerp&vjk=fc5f88a5c36385cb",
         category: "Machine Learning",
+        price: "",
       },
 
       {
@@ -42,6 +44,7 @@ mongoose
         ],
         link: "https://www.indeed.com/jobs?q=Machine+Learning&l=United+States&from=searchOnDesktopSerp&vjk=6ccf9c15f7771c1d",
         category: "Machine Learning",
+        price: "$153,759 - $225,514 a year",
       },
 
       {
@@ -55,6 +58,7 @@ mongoose
         ],
         link: "https://www.indeed.com/jobs?q=Machine+Learning&l=United+States&from=searchOnDesktopSerp&vjk=7bc259dafc4278f2",
         category: "Machine Learning",
+        price: "$212,800 - $389,500 a year",
       },
 
       {
@@ -65,6 +69,7 @@ mongoose
         skills: ["SoftWare development", "SDLC", "Machine Learning"],
         link: "https://www.indeed.com/jobs?q=Machine+Learning&l=United+States&from=searchOnDesktopSerp&vjk=816987069a4176f1",
         category: "Machine Learning",
+        price: "",
       },
 
       {
@@ -75,6 +80,7 @@ mongoose
         skills: ["System Design", "SysytemVerilog", "Machine Learning"],
         link: "https://www.indeed.com/jobs?q=Machine+Learning&l=United+States&from=searchOnDesktopSerp&vjk=9a537a1ec7f06a89",
         category: "Machine Learning",
+        price: "",
       },
 
       {
@@ -84,6 +90,7 @@ mongoose
         skills: ["pyTorch", "Machine Learning", "python"],
         link: "https://www.indeed.com/jobs?q=Machine+Learning&l=United+States&from=searchOnDesktopSerp&vjk=25b9e9995b92f00e",
         category: "Machine Learning",
+        price: "$226,000 - $286,000 a year",
       },
       {
         title: "Director of Engineering, Machine Learning",
@@ -92,6 +99,7 @@ mongoose
         skills: ["Research", "Machine Learning"],
         link: "https://www.indeed.com/jobs?q=Machine+Learning&l=United+States&from=searchOnDesktopSerp&vjk=fddcfdf9d1d56f86",
         category: "Machine Learning",
+        price: "$323,000 - $410,000 a year",
       },
 
       {
@@ -106,6 +114,7 @@ mongoose
         ],
         link: "https://www.indeed.com/jobs?q=Machine+Learning&l=United+States&from=searchOnDesktopSerp&vjk=4771f869e1ccd720",
         category: "Machine Learning",
+        price: "$116,000 - $250,000 a year",
       },
 
       {
@@ -115,6 +124,7 @@ mongoose
         skills: ["SoftWare development", "Python", "Machine Learning"],
         link: "https://www.indeed.com/jobs?q=Machine+Learning&l=United+States&from=searchOnDesktopSerp&vjk=31a3b65f62180624",
         category: "Machine Learning",
+        price: "$142,700 - $257,600 a year",
       },
       {
         title: "Technical Program Manager, Machine Learning",
@@ -123,6 +133,7 @@ mongoose
         skills: [" Program management", "Agile", "Machine Learning"],
         link: "https://www.indeed.com/jobs?q=Machine+Learning&l=United+States&start=10&vjk=9a385a4fdb8bdcd2",
         category: "Machine Learning",
+        price: "$183,000 - $232,000 a year",
       },
 
       {
@@ -132,6 +143,7 @@ mongoose
         skills: [" Vislo", "Microsoft Office", "Microsoft Excel"],
         link: "https://www.indeed.com/jobs?q=Robotics&l=United+States&from=searchOnDesktopSerp&vjk=e21278c34542b63e",
         category: "Robotics",
+        price: "$110,000 a year",
       },
       {
         title:
@@ -141,6 +153,7 @@ mongoose
         skills: ["SoftWare development", "SDLC", "Machine Learning"],
         link: "https://www.indeed.com/jobs?q=Machine+Learning&l=United+States&from=searchOnDesktopSerp&vjk=816987069a4176f1",
         category: "Robotics",
+        price: "",
       },
 
       {
@@ -151,6 +164,7 @@ mongoose
         skills: [" Vislo", "Project Management", "Organization Skill"],
         link: "https://www.indeed.com/jobs?q=Robotics&l=United+States&from=searchOnDesktopSerp&vjk=f43edbadf86f292e",
         category: "Robotics",
+        price: "",
       },
       {
         title: "Amazon Robotics - UX Co-op - 2025, Amazon Robotics UX Team",
@@ -159,6 +173,7 @@ mongoose
         skills: ["Usability", "UX", "Research"],
         link: "https://www.indeed.com/jobs?q=Robotics&l=United+States&from=searchOnDesktopSerp&vjk=d43e7883c52400e2",
         category: "Robotics",
+        price: "",
       },
 
       {
@@ -168,6 +183,7 @@ mongoose
         skills: ["Agile", "Robotics", "Communication Skills"],
         link: "https://www.indeed.com/jobs?q=Robotics&l=United+States&from=searchOnDesktopSerp&vjk=61491ef5cb4c977f",
         category: "Robotics",
+        price: "",
       },
       {
         title: "First Robotics Team Sponsor - CAPS",
@@ -176,6 +192,7 @@ mongoose
         skills: ["Robotics"],
         link: "https://www.indeed.com/jobs?q=Robotics&l=United+States&from=searchOnDesktopSerp&vjk=0aa3346abd3c32d8",
         category: "Robotics",
+        price: "",
       },
       {
         title: "Adjunct Robotics/Automated Systems Technology Instructor",
@@ -184,6 +201,7 @@ mongoose
         skills: ["Teaching", "Robotics"],
         link: "https://www.indeed.com/jobs?q=Robotics&l=United+States&from=searchOnDesktopSerp&vjk=bc752f190b38dac9",
         category: "Robotics",
+        price: "$1,000 a week",
       },
       {
         title:
@@ -198,6 +216,7 @@ mongoose
         ],
         link: "https://www.indeed.com/jobs?q=Robotics&l=United+States&from=searchOnDesktopSerp&vjk=52079948734a3604",
         category: "Robotics",
+        price: "",
       },
       {
         title: "Engineering Technician, Tesla Bot",
@@ -210,6 +229,7 @@ mongoose
         ],
         link: "https://www.indeed.com/jobs?q=Robotics&l=United+States&from=searchOnDesktopSerp&vjk=a74f4022e70a06d1",
         category: "Robotics",
+        price: "$24.40 - $50.40 an hour",
       },
       {
         title: "Automation/Robotics Technician",
@@ -218,6 +238,7 @@ mongoose
         skills: ["Robot Programming", "Fanuc", "CNC"],
         link: "https://www.indeed.com/jobs?q=Robotics&l=United+States&from=searchOnDesktopSerp&vjk=89ef6e6c4ec0ea7c",
         category: "Robotics",
+        price: "",
       },
       {
         title: "Robotics Engineer",
@@ -226,6 +247,7 @@ mongoose
         skills: ["Software Troubleshooting", "Robotics", "Debugging"],
         link: "https://www.indeed.com/jobs?q=Robotics&l=United+States&from=searchOnDesktopSerp&vjk=cc973f7d61515818",
         category: "Robotics",
+        price: "",
       },
       {
         title: "AI Research Scientist, Human Behavior and Carbon Neutrality",
@@ -234,6 +256,7 @@ mongoose
         skills: ["SQL", "Research", "Pyhton"],
         link: "https://www.indeed.com/jobs?q=Robotics&l=United+States&from=searchOnDesktopSerp&vjk=38761ac46ac95605",
         category: "Robotics",
+        price: "$165,760 - $248,640 a year",
       },
       {
         title: "Robotics Solutions Engineer",
@@ -242,6 +265,7 @@ mongoose
         skills: ["Technical Supports", "Technical Control", "Robotics"],
         link: "https://www.indeed.com/jobs?q=Robotics&l=United+States&start=10&vjk=cee6ab672cf8889d",
         category: "Robotics",
+        price: "$59,000 - $110,000 a year",
       },
 
       {
@@ -252,6 +276,7 @@ mongoose
         skills: ["AI", "Natural language processing", "Machine Learning"],
         link: "https://www.indeed.com/jobs?q=Cognitive+Computing&l=United+States&from=searchOnDesktopSerp&vjk=b9eedf7205ce594d",
         category: "Cognitive Computing",
+        price: "$145,000 - $250,000 a year",
       },
       {
         title: "Applied Scientist, SPX AI Lab",
@@ -260,6 +285,7 @@ mongoose
         skills: ["Organization Skill", "Natural language processing", "Python"],
         link: "https://www.indeed.com/jobs?q=Cognitive+Computing&l=United+States&from=searchOnDesktopSerp&vjk=ee70b681556f795f",
         category: "Cognitive Computing",
+        price: "$136,000 - $223,400 a year",
       },
       {
         title: "Systems Engineer II – Advanced Algorithms",
@@ -268,6 +294,7 @@ mongoose
         skills: ["AI", "Signal processing", "Algorithims"],
         link: "https://www.indeed.com/jobs?q=Cognitive+Computing&l=United+States&from=searchOnDesktopSerp&vjk=8e752b252860951f",
         category: "Cognitive Computing",
+        price: "",
       },
       {
         title: "Machine Learning Engineer II",
@@ -276,6 +303,7 @@ mongoose
         skills: ["Software Development", "Scala", "Spark"],
         link: "https://www.indeed.com/jobs?q=Cognitive+Computing&l=United+States&start=10&vjk=56378abe8d54c1dd",
         category: "Cognitive Computing",
+        price: "$98,300 - $208,800 a year",
       },
       {
         title:
@@ -285,6 +313,7 @@ mongoose
         skills: ["System Design", "System Engineering", "Python"],
         link: "https://www.indeed.com/jobs?q=Cognitive+Computing&l=United+States&start=10&vjk=e38928e44c4c523f",
         category: "Cognitive Computing",
+        price: "$110,300 - $206,000 a year",
       },
       {
         title:
@@ -294,6 +323,7 @@ mongoose
         skills: ["Python", "Data Mining", "Communication Skills"],
         link: "https://www.indeed.com/jobs?q=Cognitive+Computing&l=United+States&start=10&vjk=96a1da492d2ef8ea",
         category: "Cognitive Computing",
+        price: "$136,000 - $222,200 a year",
       },
       {
         title:
@@ -307,6 +337,7 @@ mongoose
         ],
         link: "https://www.indeed.com/jobs?q=Cognitive+Computing&l=United+States&start=10&vjk=34c60c2eaa52f20f",
         category: "Cognitive Computing",
+        price: "$179,000 - $309,400 a year",
       },
       {
         title: "AI Research Scientist, Human Behavior and Carbon Neutrality",
@@ -315,7 +346,9 @@ mongoose
         skills: ["SQL", "Research", "Pyhton"],
         link: "https://www.indeed.com/jobs?q=Cognitive+Computing&l=United+States&from=searchOnDesktopSerp&vjk=b9eedf7205ce594d",
         category: "Cognitive Computing",
+        price: "$145,000 - $250,000 a year",
       },
+
       {
         title: "Senior Applied Scientist, Alexa",
         location: "Bellevue, WA",
@@ -323,6 +356,7 @@ mongoose
         skills: ["SoftWare development", "Python", "Research"],
         link: "https://www.indeed.com/jobs?q=Cognitive+Computing&l=United+States&start=20&vjk=66a0f9019bab4d85",
         category: "Cognitive Computing",
+        price: "$150,400 - $260,000 a year",
       },
 
       {
@@ -332,6 +366,7 @@ mongoose
         skills: ["SoftWare development", "Linux", "Windows"],
         link: "https://www.indeed.com/jobs?q=AI+in+gaming&l=United+States&from=searchOnDesktopSerp&vjk=38e71412b8ce0176",
         category: "AI in Gaming",
+        price: "",
       },
       {
         title:
@@ -345,6 +380,7 @@ mongoose
         ],
         link: "https://www.indeed.com/jobs?q=AI+in+gaming&l=United+States&from=searchOnDesktopSerp&vjk=6a58ac7a7604db41",
         category: "AI in Gaming",
+        price: "$178,100 - $307,900 a year",
       },
       {
         title: "Senior Compiler Engineer - AI",
@@ -357,6 +393,7 @@ mongoose
         ],
         link: "https://www.indeed.com/jobs?q=AI+in+gaming&l=United+States&from=searchOnDesktopSerp&vjk=41a61cab46f14c9e",
         category: "AI in Gaming",
+        price: "$148,000 - $419,750 a year",
       },
       {
         title: "Design Director",
@@ -365,6 +402,7 @@ mongoose
         skills: ["System Design", "Pythn"],
         link: "https://www.indeed.com/jobs?q=ai+gaming&l=United+States&start=10&vjk=6809e20ea82a73fc",
         category: "AI in Gaming",
+        price: "$197,000 - $305,600 a year",
       },
 
       {
@@ -374,6 +412,7 @@ mongoose
         skills: ["c++", "ios", "Analysis skills"],
         link: "https://www.indeed.com/jobs?q=ai+gaming&l=United+States&start=10&vjk=f104667afe8347cf",
         category: "AI in Gaming",
+        price: "$155,500 - $287,876 a year",
       },
       {
         title: "Senior Software Engineer, Amazon Games AI Research",
@@ -382,6 +421,7 @@ mongoose
         skills: ["Unity", "Tensor Flow", "Software Development"],
         link: "https://www.indeed.com/jobs?q=ai+gaming&l=United+States&start=10&vjk=075871a5b0581e89",
         category: "AI in Gaming",
+        price: "$151,300 - $261,500 a year",
       },
       {
         title: "Director, Cloud and Digital Platform Security",
@@ -391,6 +431,7 @@ mongoose
         skills: ["Vulnerability assessment", "SDLC", "Leadership"],
         link: "https://www.indeed.com/jobs?q=Ai+Gaming&l=Kentucky&from=sug&vjk=a9cb87faee723592",
         category: "AI in Gaming",
+        price: "",
       },
 
       {
@@ -406,6 +447,7 @@ mongoose
         ],
         link: "https://www.indeed.com/jobs?q=NLP&l=United+States&from=searchOnDesktopSerp&vjk=9162dac3eec14b3e",
         category: "Natural Language Processing (NLP)",
+        price: "",
       },
       {
         title: "AI Research Scientist, Human Behavior and Carbon Neutrality",
@@ -414,6 +456,7 @@ mongoose
         skills: ["Research", "SQL", "Python", "Natural Language Processing"],
         link: "https://www.indeed.com/jobs?q=NLP&l=United+States&from=searchOnDesktopSerp&vjk=38761ac46ac95605",
         category: "Natural Language Processing (NLP)",
+        price: "$165,760 - $248,640 a year",
       },
       {
         title: "Applied Scientist , FinTech - Finance Intelligence",
@@ -427,6 +470,7 @@ mongoose
         ],
         link: "https://www.indeed.com/jobs?q=NLP&l=United+States&start=10&vjk=ec9228ffa1e94571",
         category: "Natural Language Processing (NLP)",
+        price: "$136,000 - $223,400 a year",
       },
       {
         title: "Machine Learning Manager",
@@ -435,6 +479,7 @@ mongoose
         skills: ["Natural Language Processing", "Devops", "Machine Learning"],
         link: "https://www.indeed.com/jobs?q=NLP&l=United+States&start=10&vjk=46c323e44f8f3a60",
         category: "Natural Language Processing (NLP)",
+        price: "$180,000 - $250,000 a year",
       },
       {
         title: "Principal Engineer- Machine Learning",
@@ -443,6 +488,7 @@ mongoose
         skills: ["Natural Language Processing", "Python", "Machine Learning"],
         link: "https://www.indeed.com/jobs?q=NLP&l=United+States&start=10&vjk=8913008a9b080974",
         category: "Natural Language Processing (NLP)",
+        price: "$146,900 - $237,600 a year",
       },
       {
         title: "Fundamental Multimodal Research Scientist - Generative AI",
@@ -455,6 +501,7 @@ mongoose
         ],
         link: "https://www.indeed.com/jobs?q=NLP&l=United+States&start=10&vjk=379bda992b17db12",
         category: "Natural Language Processing (NLP)",
+        price: "$177,000 - $251,000 a year",
       },
       {
         title: "Language Model Engineer",
@@ -463,6 +510,7 @@ mongoose
         skills: ["Natural Language Processing", "Python", "Machine Learning"],
         link: "https://www.indeed.com/jobs?q=NLP&l=United+States&start=10&vjk=794a0cbf215196b2",
         category: "Natural Language Processing (NLP)",
+        price: "$140,000 - $170,000 a year",
       },
       {
         title: "Sr. SDE, Machine Learning",
@@ -471,6 +519,7 @@ mongoose
         skills: ["Natural Language Processing", "Python", "Machine Learning"],
         link: "https://www.indeed.com/jobs?q=NLP&l=United+States&start=20&vjk=968dab97bdf57780",
         category: "Natural Language Processing (NLP)",
+        price: "$151,300 - $261,500 a year",
       },
       {
         title: "AI Innovation Strategy",
@@ -479,6 +528,7 @@ mongoose
         skills: ["Natural Language Processing", "Python", "Machine Learning"],
         link: "https://www.indeed.com/jobs?q=NLP&l=United+States&start=20&vjk=c49fa799b01c167c",
         category: "Natural Language Processing (NLP)",
+        price: "$202,000 - $237,000 a year",
       },
       {
         title: "Algorithm Engineer, Deep Learning",
@@ -487,6 +537,7 @@ mongoose
         skills: ["Natural Language Processing", "Python", "Machine Learning"],
         link: "https://www.indeed.com/jobs?q=NLP&l=United+States&start=20&vjk=394b41a1218051ff",
         category: "Natural Language Processing (NLP)",
+        price: "$130,400 - $221,700 a year",
       },
     ];
 
@@ -498,6 +549,10 @@ mongoose
     console.error("Error connecting to MongoDB:", error);
   });
 
+
+
+
+  
 [
   {
     title: "Senior Machine Learning Engineer",

@@ -3,10 +3,10 @@ const createTokenUser = require("../utils/createTokenUser");
 const { createToken } = require("../utils/token");
 const { handleValidationError } = require("../utils/handleError");
 const Course = require("../models/CourseModel");
-const cloudinary = require("cloudinary").v2; 
-const fs = require("fs")
+const cloudinary = require("cloudinary").v2;
+const fs = require("fs");
 const crypto = require("crypto");
-const sendEmail  = require("../utils/sendEmail");
+const sendEmail = require("../utils/sendEmail");
 
 const forgotPassword = async (req, res) => {
   try {
@@ -32,23 +32,22 @@ const forgotPassword = async (req, res) => {
       .digest("hex");
 
     user.passwordResetToken = hashedToken;
-    user.passwordResetExpires = Date.now() + 10 * 60 * 1000; // 10 minutes
+    user.passwordResetExpires = Date.now() + 10 * 60 * 1000; 
 
     await user.save();
 
-    // Create reset URL
-    const resetURL = `${req.protocol}://${req.get(
-      "host"
-    )}/api/reset-password/${resetToken}`;
+    const resetURL = `${process.env.FRONTEND_URL}/?token=${resetToken}`;
+  
+    
 
-    // Email message content
     const message = `
       <p>Forgot your password? Click the link below to reset it:</p>
       <p><a href="${resetURL}" target="_blank">${resetURL}</a></p>
       <p>If you did not request this, please ignore this email.</p>
     `;
+ 
+    
 
-    // Send the email using the provided sendEmail method
     await sendEmail(
       user.email,
       "Password Reset Request",
@@ -61,14 +60,14 @@ const forgotPassword = async (req, res) => {
       message: "Password reset link sent to your email",
     });
   } catch (error) {
-    console.error("Forgot password error:", error);
+  
 
-    // Handle errors
     res.status(500).json({
       error: "An error occurred, please try again later",
     });
   }
 };
+
 
 const resetPassword = async (req, res) => {
   try {
@@ -90,7 +89,6 @@ const resetPassword = async (req, res) => {
       return res.status(400).json({ error: "Token is invalid or expired" });
     }
 
-
     user.password = password;
     user.passwordResetToken = undefined;
     user.passwordResetExpires = undefined;
@@ -102,22 +100,19 @@ const resetPassword = async (req, res) => {
       message: "Password has been reset successfully",
     });
   } catch (error) {
-    console.error(error.message );
-    if(error.message == 'User validation failed: password: Password must contain at least one uppercase letter, one number, and one special character') {
-      return res
-         .status(500)
-         .json({
-           error:
-             "Password must contain at least one uppercase letter, one number, and one special character",
-         });
-
-
+    console.error(error.message);
+    if (
+      error.message ==
+      "User validation failed: password: Password must contain at least one uppercase letter, one number, and one special character"
+    ) {
+      return res.status(500).json({
+        error:
+          "Password must contain at least one uppercase letter, one number, and one special character",
+      });
     }
     res.status(500).json({ error: "An error occurred, please try again" });
   }
 };
-
-
 
 const register = async (req, res) => {
   try {
@@ -178,15 +173,13 @@ const register = async (req, res) => {
       user: tokenUser,
     });
   } catch (error) {
-    console.error(error);
+
 
     const { statusCode = 500, error: errorMessage = "Internal Server Error" } =
       handleValidationError(error);
     return res.status(statusCode).json({ error: errorMessage });
   }
 };
-
-
 
 const getSuggestedCourses = async (userId) => {
   try {
@@ -201,12 +194,10 @@ const getSuggestedCourses = async (userId) => {
     });
     return suggestedCourses;
   } catch (error) {
-    console.log(error);
+   
     throw new Error("Error fetching suggested courses: " + error.message);
   }
 };
-
-
 
 const login = async (req, res) => {
   try {
@@ -238,10 +229,10 @@ const login = async (req, res) => {
       status: "success",
       message: "Login successful",
       user: tokenUser,
-      // suggestedCourses, 
+      // suggestedCourses,
     });
   } catch (error) {
-    console.error(error);
+   
     return res.status(500).json({ error: "Internal server error" });
   }
 };

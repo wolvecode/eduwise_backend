@@ -11,7 +11,7 @@ const getUserDetails = async (req, res) => {
       "title description"
     );
 
-    console.log(user);
+
     
     if (!user) {
       return res
@@ -175,7 +175,7 @@ const enrollUser = async (req, res) => {
 
     const course = await Course.findById(courseId);
 
-    console.log(course);
+   
     
 
     if (!course) {
@@ -186,7 +186,7 @@ const enrollUser = async (req, res) => {
 
     const user = await User.findById(userId);
 
-    console.log(user);
+
     
 
     if (!user) {
@@ -203,7 +203,7 @@ const enrollUser = async (req, res) => {
 
     user.enrolledCourses.push(courseId);
 
-    console.log(user);
+
     
 
     const courseProgress = {

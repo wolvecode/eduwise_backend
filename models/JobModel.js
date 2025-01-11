@@ -29,6 +29,9 @@ const JobSchema = new mongoose.Schema(
         message: "Invalid URL format.",
       },
     },
+    price: {
+      type: String
+    },
     category: {
       type: String,
       enum: [
