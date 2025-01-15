@@ -22,6 +22,7 @@ GET:  http://localhost:3000/api/courses/:courseId
 POST:  http://localhost:3000/api/forgot-password
 PATCH: http://localhost:3000/api/reset-password/:token
 GET:  http://localhost:3000/api/suggest-job/interest
+PATCH http://localhost:3000/api/change-password
 
 
 1. User Registeration
@@ -854,4 +855,20 @@ result: {
             "updatedAt": "2025-01-03T08:18:46.916Z"
         }
     ]
+}
+
+
+23 How to chnage password
+
+http://localhost:3000/api/change-password
+
+payload: {
+  
+    "currentPassword": "18/67Ms/00226aa@@242",
+    "newPassword": "18/67Ms/00226aa@@22"
+
+}
+
+result = {
+    "message": "Password changed successfully."
 }

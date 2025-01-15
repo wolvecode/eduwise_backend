@@ -3,16 +3,15 @@ const createTokenUser = require("../utils/createTokenUser");
 const { createToken } = require("../utils/token");
 const { handleValidationError } = require("../utils/handleError");
 const Course = require("../models/CourseModel");
-const cloudinary = require("cloudinary").v2;
-const fs = require("fs");
+const bcrypt = require('bcryptjs')
 const crypto = require("crypto");
 const sendEmail = require("../utils/sendEmail");
+const { log } = require("console");
 
 const forgotPassword = async (req, res) => {
   try {
     const { email } = req.body;
 
-    // Validate email input
     if (!email) {
       return res.status(400).json({ error: "Please provide an email address" });
     }
@@ -200,8 +199,10 @@ const getSuggestedCourses = async (userId) => {
 };
 
 const login = async (req, res) => {
+
   try {
     const { email, password } = req.body;
+    console.log("Login request:", { email, password });
 
     if (!email || !password) {
       return res
@@ -210,36 +211,93 @@ const login = async (req, res) => {
     }
 
     const user = await User.findOne({ email });
+    console.log("User fetched:", user);
+
     if (!user) {
-      return res.status(404).json({ error: "Email or password incorrect" });
+      return res.status(400).json({ error: "Email or password incorrect" });
     }
 
     const isMatch = await user.comparePassword(password);
+    
     if (!isMatch) {
-      return res.status(404).json({ error: "Email or password incorrect" });
+      console.log("Password comparison failed for user:", user);
+      return res.status(400).json({ error: "Email or password incorrect" });
     }
 
+    console.log("Login successful for user:", user);
     const tokenUser = createTokenUser(user);
     const token = createToken({ user: tokenUser });
-
-    const suggestedCourses = await getSuggestedCourses(user._id);
 
     return res.status(200).json({
       token,
       status: "success",
       message: "Login successful",
       user: tokenUser,
-      // suggestedCourses,
     });
   } catch (error) {
-   
+    console.error("Error during login:", error.message);
     return res.status(500).json({ error: "Internal server error" });
   }
 };
+
+
+const changePassword = async (req, res) => {
+  try {
+    const { currentPassword, newPassword } = req.body;
+    const userId = req.user.userId; 
+
+    if (!currentPassword || !newPassword) {
+      return res
+        .status(400)
+        .json({
+          error: "Both current password and new password are required.",
+        });
+    }
+
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ error: "User not found." });
+    }
+
+    const isPasswordMatch = await user.comparePassword(currentPassword);
+    if (!isPasswordMatch) {
+      return res.status(400).json({ error: "Current password is incorrect." });
+    }
+
+    if (
+      !/[A-Z]/.test(newPassword) ||
+      !/\d/.test(newPassword) ||
+      !/[!@#$%^&*(),.?":{}|<>]/.test(newPassword)
+    ) {
+      return res.status(400).json({
+        error:
+          "New password must contain at least one uppercase letter, one number, and one special character.",
+      });
+    }
+
+    const salt = await bcrypt.genSalt();
+    const hashedPassword = await bcrypt.hash(newPassword, salt);
+    console.log(hashedPassword);
+    
+
+    await User.findByIdAndUpdate(userId, { password: hashedPassword });
+    console.log(user.password);
+    
+
+    return res.status(200).json({ message: "Password changed successfully." });
+  } catch (error) {
+    const { statusCode = 500, error: errorMessage = "Internal Server Error" } =
+      handleValidationError(error);
+    return res.status(statusCode).json({ error: errorMessage });
+  }
+};
+
+
 
 module.exports = {
   register,
   login,
   forgotPassword,
   resetPassword,
+  changePassword
 };

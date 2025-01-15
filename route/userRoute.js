@@ -1,11 +1,18 @@
 const express = require("express");
 const router = express.Router();
 
-const { register, login, forgotPassword, resetPassword } = require("../controllers/authController");
+const {
+  register,
+  login,
+  forgotPassword,
+  changePassword,
+  resetPassword,
+} = require("../controllers/authController");
 
 const {
   enrollUser,
   getUserDetails,
+
   getUserEnrolledCourses,
   suggestJobsBasedOnCourses,
   markLessonWatched,
@@ -19,6 +26,7 @@ const { authenticateUser } = require("../middleware/authentication");
 router
   .post("/register", register)
   .post("/login", login)
+  .patch("/change-password", authenticateUser, changePassword)
   .post("/forgot-password", forgotPassword)
   .patch("/reset-password/:token", resetPassword)
   .patch("/update/user", authenticateUser, updateUserDetails)
