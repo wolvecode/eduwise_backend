@@ -1013,7 +1013,7 @@ result: {
 
 ///////////// New APIS
 
-1. POST /api/admin/create-admin
+1. POST /api/create-admin
 
 payload: {
     "name": "New Admin",
