@@ -476,6 +476,41 @@ const publishQuiz = async (req, res) => {
   }
 };
 
+const updateLessonWatched = async (req, res) => {
+  try {
+    const { courseId, sectionId, lessonId } = req.params;
+
+    // Validate if courseId, sectionId and lessonId are valid ObjectIDs
+    if (!mongoose.Types.ObjectId.isValid(courseId) ||
+        !mongoose.Types.ObjectId.isValid(sectionId) ||
+        !mongoose.Types.ObjectId.isValid(lessonId)) {
+      return res.status(400).json({ error: 'Invalid ID format' });
+    }
+
+    const updatedCourse = await Course.findOneAndUpdate(
+      { _id: courseId, 'contents._id': sectionId, 'contents.lessons._id': lessonId },
+      {
+        $set: {
+          'contents.$.lessons.$[lesson].watched': true,
+          'contents.$.lessons.$[lesson].watchedAt': new Date(),
+        },
+      },
+      {
+        new: true, 
+        arrayFilters: [{ 'lesson._id': lessonId }],
+      }
+    );
+
+    if (!updatedCourse) {
+      return res.status(404).json({ error: 'Course or lesson not found' });
+    }
+
+    res.status(200).json(updatedCourse);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+}
 
 
 
@@ -495,4 +530,5 @@ module.exports = {
   deleteQuiz,
   publishQuiz,
   getLecturerCourses,
+  updateLessonWatched,
 };
