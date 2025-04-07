@@ -71,7 +71,7 @@ const UserSchema = new mongoose.Schema(
     ],
     progress: [
       {
-        courseId: { type: mongoose.Schema.Types.ObjectId, ref: "Course" },
+        courseId: { type: mongoose.Schema.Types.ObjectId, ref: 'Course' },
         sections: [
           {
             sectionTitle: String,
@@ -84,7 +84,14 @@ const UserSchema = new mongoose.Schema(
             ],
           },
         ],
-        status: { type: String, default: "not started" },
+        quizzes: [ 
+          {
+            quizId: { type: mongoose.Schema.Types.ObjectId, ref: 'Course.quizzes' },
+            score: { type: Number, default: 0 },
+            attempts: { type: Number, default: 0 },
+          },
+        ],
+        status: { type: String, default: 'not started' },
       },
     ],
   },
