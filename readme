@@ -1082,3 +1082,17 @@ result: {
     status: 'success', 
     courses: [] //course data 
 }
+
+6. GET /api/users/courses/:courseId
+
+// If course is not found
+result: { 
+    status: 'error',
+    message: 'Course not found in user\'s enrolled courses' 
+}
+
+// If course is available 
+result: { 
+    status: 'success', 
+    course: {} // course information
+}
