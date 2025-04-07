@@ -25,7 +25,7 @@ const authenticateUser = async (req, res, next) => {
     next();
   } catch (error) {
     console.error("Token verification failed:", error);
-    return sendErrorResponse(res, "Invalid authentication token", 401);
+    return sendErrorResponse(res, error, 401);
   }
 };
 
