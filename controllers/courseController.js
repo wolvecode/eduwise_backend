@@ -388,7 +388,8 @@ const submitQuizAnswers = async (req, res) => {
             attempts: 1,
         });
     }
-
+    
+    console.log(user);
     await user.save();
 
     res.status(200).json({
