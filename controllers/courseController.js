@@ -377,18 +377,23 @@ const submitQuizAnswers = async (req, res) => {
     // Update user quiz score and attempts
     const userQuiz = courseProgress.quizzes.find((q) => q.quizId.toString() === quizId);
     if (userQuiz) {
+      console.log("here 1")
         if (!userQuiz.score || percentage > userQuiz.score) {
+          console.log("here 1")
           userQuiz.score = percentage;
         }
+        console.log("here 1")
         userQuiz.attempts = userQuiz.attempts + 1;
     } else {
+      console.log("here 1")
         courseProgress.quizzes.push({
             quizId: quizId,
             score: percentage,
             attempts: 1,
         });
     }
-
+    
+    console.log(user);
     await user.save();
 
     res.status(200).json({
