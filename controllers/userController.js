@@ -637,6 +637,27 @@ const toggleUserStatus = async (req, res) => {
   }
 };
 
+const getCoursesByUser = async (req, res) => {
+  try {
+    const userId = req.user.userId; 
+
+    const user = await User.findById(userId).populate('enrolledCourses');
+
+    if (!user) {
+      return res.status(404).json({ status: 'error', message: 'User not found' });
+    }
+
+    if (!user.enrolledCourses || user.enrolledCourses.length === 0) {
+      return res.status(200).json({ status: 'success', message: 'User has no enrolled courses', courses: [] });
+    }
+
+    res.status(200).json({ status: 'success', courses: user.enrolledCourses });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ status: 'error', message: 'Internal Server Error' });
+  }
+};
+
 module.exports = {
   getUserCount,
   enrollUser,
@@ -649,5 +670,6 @@ module.exports = {
   suggestJobsBasedOnInterests,
   createAdmin,
   toggleUserStatus,
-  getAllUsers
+  getAllUsers,
+  getCoursesByUser
 };
