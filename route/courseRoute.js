@@ -66,6 +66,5 @@ router
   .put("/:courseId/quizzes/:quizId", authenticateUser, editQuiz)    
   .delete("/:courseId/quizzes/:quizId", authenticateUser, deleteQuiz) 
   .patch("/:courseId/quizzes/:quizId/publish", authenticateUser, publishQuiz)
-  .patch('/courses/:courseId/sections/:sectionId/lessons/:lessonId/watched', authenticateUser, updateLessonWatched);
 
 module.exports = router;
