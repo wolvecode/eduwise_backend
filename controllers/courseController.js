@@ -1,4 +1,6 @@
 const Course = require("../models/CourseModel");
+const User = require("../models/UserModel");
+
 const mongoose = require('mongoose')
 const { extractValidationErrors } = require("../utils/handleError");
 
@@ -284,7 +286,6 @@ const deleteCourse = async (req, res) => {
 
 
 // quiz
-
 const addQuizToCourse = async (req, res) => {
   try {
     const { courseId } = req.params;
@@ -333,7 +334,6 @@ const submitQuizAnswers = async (req, res) => {
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
     }
-
     const courseProgress = user.progress.find(
       (progress) => progress.courseId.toString() === courseId
     );

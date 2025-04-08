@@ -25,12 +25,11 @@ const authenticateUser = async (req, res, next) => {
     next();
   } catch (error) {
     console.error("Token verification failed:", error);
-    return sendErrorResponse(res, error, 401);
+    return sendErrorResponse(res, "Invalid authentication token", 401);
   }
 };
 
 const authorizePermissions = (...roles) => {
-  console.log(roles)
   return (req, res, next) => {
     if (!req.user || !roles.includes(req.user.role)) {
       return sendErrorResponse(res, "Unauthorized access", 403);
