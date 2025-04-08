@@ -86,7 +86,6 @@ const UserSchema = new mongoose.Schema(
         ],
         quizzes: [ 
           {
-            quizId: { type: mongoose.Schema.Types.ObjectId, ref: 'Course.quizzes' },
             score: { type: Number, default: 0 },
             attempts: { type: Number, default: 0 },
           },
