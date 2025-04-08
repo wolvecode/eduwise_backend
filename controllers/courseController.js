@@ -374,8 +374,8 @@ const submitQuizAnswers = async (req, res) => {
 
     const percentage = Math.ceil((score / quiz.questions.length) * 100);
 
-    // Update user quiz score and attempts
-    const userQuiz = courseProgress.quizzes.find((q) => q.quizId.toString() === quizId);
+    // Update user quiz score and attempts 
+    const userQuiz = courseProgress.quizzes.find((q) => q._id.toString() === quizId);
     if (userQuiz) {
         if (!userQuiz.score || percentage > userQuiz.score) {
           userQuiz.score = percentage;
@@ -383,7 +383,6 @@ const submitQuizAnswers = async (req, res) => {
         userQuiz.attempts = userQuiz.attempts + 1;
     } else {
         courseProgress.quizzes.push({
-            quizId: quizId,
             score: percentage,
             attempts: 1,
         });
