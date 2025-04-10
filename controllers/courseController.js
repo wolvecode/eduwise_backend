@@ -21,7 +21,7 @@ const getSingleCourse = async (req, res) => {
 
 const getAllCourses = async (req, res) => {
   try {
-    const allCourses = await Course.find({}).sort({ createdAt: -1 }); // Sort by createdAt in descending order
+    const allCourses = await Course.find({}).populate('lecturer').sort({ createdAt: -1 }); // Sort by createdAt in descending order
 
     if (allCourses.length === 0) {
       return res.status(404).json({ message: "No courses found" });
