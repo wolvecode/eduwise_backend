@@ -642,7 +642,7 @@ const getCoursesByUser = async (req, res) => {
   try {
     const userId = req.user.userId;
 
-    const user = await User.findById(userId).populate('enrolledCourses');
+    const user = await User.findById(userId).populate('enrolledCourses').populate('lecturer');
 
     if (!user) {
       return res.status(404).json({ status: 'error', message: 'User not found' });
@@ -713,7 +713,7 @@ const getCourseByUser = async (req, res) => {
     const userId = req.user.userId;
     const { courseId } = req.params;
 
-    const user = await User.findById(userId).populate('enrolledCourses');
+    const user = await User.findById(userId).populate('enrolledCourses').populate('lecturer');
 
     if (!user) {
       return res.status(404).json({ status: 'error', message: 'User not found' });
