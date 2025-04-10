@@ -4,6 +4,7 @@ const Job = require("../models/JobModel");
 const bcrypt = require("bcryptjs");
 const cloudinary = require("cloudinary").v2;
 const fs = require("fs");
+const { log } = require("console");
 
 const getUserCount = async (req, res) => {
   try {
@@ -687,7 +688,7 @@ const getCoursesByUser = async (req, res) => {
       const updatedQuizzes = course.quizzes.map(quiz => {
         const userQuizData = userQuizzes.find(uq => uq.quizId?.toString() === quiz._id.toString());
         return {
-          ...quiz._doc,
+          // ...quiz._doc, 
           score: userQuizData?.score || 0,
           attempts: userQuizData?.attempts || 0,
         };
