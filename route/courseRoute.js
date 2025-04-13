@@ -58,7 +58,7 @@ router
   .delete(
     "/delete-course/:id",
     authenticateUser,
-    authorizePermissions("lecturer"),
+    authorizePermissions("lecturer", "super_admin", "admin"),
     deleteCourse
   )
   .post("/courses/:courseId/quizzes", authenticateUser, addQuizToCourse)
