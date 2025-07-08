@@ -591,21 +591,20 @@ const createAdmin = async (req, res) => {
       return res.status(400).json({ status: "error", message: "Admin already exists" });
     }
 
-    // Create new admin (let Mongoose hash the password)
+    // Create new admin
     const newAdmin = new User({
-      fullName: name,
+      name,
       email,
-      interests: [],
-      password: "12345678", // Plain password; pre-save hook will hash it
+      password: "12345678",
       role: "admin",
     });
 
     await newAdmin.save();
 
-    res.status(201).json({
-      status: "success",
-      message: "Admin created successfully",
-      admin: newAdmin,
+    res.status(201).json({ 
+      status: "success", 
+      message: "Admin created successfully", 
+      admin: newAdmin 
     });
   } catch (error) {
     console.error(error.message);
