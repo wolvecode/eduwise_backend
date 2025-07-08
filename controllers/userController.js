@@ -595,6 +595,7 @@ const createAdmin = async (req, res) => {
     const newAdmin = new User({
       fullName: name,
       email,
+      interests: [],
       password: "12345678", // Plain password; pre-save hook will hash it
       role: "admin",
     });
