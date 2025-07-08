@@ -593,7 +593,7 @@ const createAdmin = async (req, res) => {
 
     // Create new admin
     const newAdmin = new User({
-      name,
+      fullName: name,
       email,
       password: "User@1234",
       role: "admin",
