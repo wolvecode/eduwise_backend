@@ -17,7 +17,8 @@ const {
   deleteQuiz,
   publishQuiz,
   editMultipleContentsInCourse,
-  updateLessonWatched
+  updateLessonWatched,
+  getCourseStudentProgress
 } = require("../controllers/courseController"); 
 
 const {
@@ -60,6 +61,11 @@ router
     authenticateUser,
     authorizePermissions("lecturer", "super_admin", "admin"),
     deleteCourse
+  )
+  .get('/courses/:courseId/students-progress', 
+    authenticateUser,
+    authorizePermissions("lecturer", "super_admin", "admin"), 
+    getCourseStudentProgress
   )
   .post("/courses/:courseId/quizzes", authenticateUser, addQuizToCourse)
   .post("/courses/:courseId/quizzes/:quizId/submit", authenticateUser, submitQuizAnswers)

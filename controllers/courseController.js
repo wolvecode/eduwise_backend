@@ -62,6 +62,36 @@ const getLecturerCourses = async (req, res) => {
   }
 };
 
+const getCourseStudentProgress = async (req, res) => {
+  try {
+    const { courseId } = req.params;
+
+    const users = await User.find({ 'progress.courseId': courseId })
+      .select('fullName email progress')
+      .lean();
+
+    const students = users.map(user => {
+      const courseProgress = user.progress.find(p => p.courseId.toString() === courseId);
+      const latestQuiz = courseProgress?.quizzes?.[courseProgress.quizzes.length - 1] || {};
+
+      return {
+        userId: user._id,
+        name: user.fullName,
+        email: user.email,
+        score: latestQuiz.score || 0,
+        attempts: latestQuiz.attempts || 0,
+        status: courseProgress?.status || 'not started'
+      };
+    });
+
+    res.status(200).json({ status: 'success', students });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ status: 'error', message: 'Failed to fetch student progress' });
+  }
+};
+
+
 const getSuggestedCoursesForUser = async (req, res) => {
   try {
     const interests = req.user.interests; 
@@ -517,4 +547,5 @@ module.exports = {
   deleteQuiz,
   publishQuiz,
   getLecturerCourses,
+  getCourseStudentProgress
 };

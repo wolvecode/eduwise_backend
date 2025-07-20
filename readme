@@ -1096,3 +1096,18 @@ result: {
     status: 'success', 
     course: {} // course information
 }
+
+7. 6. GET /courses/:courseId/students-progress
+result: { 
+    status: 'success', 
+    students: [
+        {
+        userId: user._id,
+        name: user.fullName,
+        email: user.email,
+        score: latestQuiz.score || 0,
+        attempts: latestQuiz.attempts || 0,
+        status: courseProgress?.status || 'not started'
+        }
+    ], 
+}
