@@ -78,6 +78,7 @@ const getCourseStudentProgress = async (req, res) => {
         userId: user._id,
         name: user.fullName,
         email: user.email,
+        image: user.userImage || null,  
         score: latestQuiz.score || 0,
         attempts: latestQuiz.attempts || 0,
         status: courseProgress?.status || 'not started'
